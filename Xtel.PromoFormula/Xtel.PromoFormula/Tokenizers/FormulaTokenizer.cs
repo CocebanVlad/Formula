@@ -41,7 +41,6 @@ namespace Xtel.PromoFormula.Tokenizers
                     {
                         parsed = true;
                         tokens.Add(token);
-                        parser.ValidateOccurrence(tokens);
                         break;
                     }
                 }

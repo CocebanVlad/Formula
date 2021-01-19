@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Parsers
@@ -33,14 +34,12 @@ namespace Xtel.PromoFormula.Parsers
                             return true;
                         }
                     }
+
+                    throw new ParsingException(idxE, $"Unexpected char at: {idxS}");
                 }
             }
 
             return false;
-        }
-
-        public override void ValidateOccurrence(ICollection<Token> tokens)
-        {
         }
     }
 }

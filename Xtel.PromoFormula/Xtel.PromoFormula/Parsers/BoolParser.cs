@@ -33,9 +33,5 @@ namespace Xtel.PromoFormula.Parsers
 
             return false;
         }
-
-        public override void ValidateOccurrence(ICollection<Token> tokens)
-        {
-        }
     }
 }

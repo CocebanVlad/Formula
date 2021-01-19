@@ -6,7 +6,7 @@ namespace Xtel.PromoFormula.Tokens
 {
     public class NumberToken : Token
     {
-        public NumberInfo Number { get; set; }
+        public double Number { get; set; }
 
         public override string ToString() => Number.ToString();
     }

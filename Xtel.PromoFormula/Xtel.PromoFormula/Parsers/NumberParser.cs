@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Tokens;
@@ -15,18 +16,16 @@ namespace Xtel.PromoFormula.Parsers
 
             if (idxS < str.Length)
             {
-                if (char.IsNumber(str[idxS]))
+                if (char.IsDigit(str[idxS]))
                 {
-                    uint[] parts = { 0, 0, 0 }; // 0 - whole part; 1 - fractional part; 2 - exponent;
-                    byte head = 0;
-                    bool hasNegativeExponent = false;
+                    var head = 0; // 0 - whole part; 1 - fractional part; 2 - exponent;
+                    var number = new StringBuilder();
 
                     for (; idxE < str.Length; idxE++)
                     {
                         if (char.IsDigit(str[idxE]))
                         {
-                            parts[head] *= 10;
-                            parts[head] += Helpers.GetNumericValue(str[idxE]);
+                            number.Append(str[idxE]);
                             continue;
                         }
 
@@ -43,6 +42,7 @@ namespace Xtel.PromoFormula.Parsers
                             }
 
                             head = 1;
+                            number.Append('.');
                             continue;
                         }
 
@@ -54,32 +54,35 @@ namespace Xtel.PromoFormula.Parsers
                             }
 
                             head = 2;
-                            idxE++;
+                            number.Append('e');
 
-                            if (str[idxE] != '+' && str[idxE] != '-')
+                            if (str.Length > idxE + 1 && (str[idxE + 1] == '+' || str[idxE + 1] == '-'))
                             {
-                                throw new ParsingException(idxE, $"Unexpected char at: {idxE}");
+                                idxE++;
+                                number.Append(str[idxE]);
                             }
 
-                            hasNegativeExponent = str[idxE] == '-';
                             continue;
-                        }
-
-                        if (head == 2 && parts[2] == 0)
-                        {
-                            throw new ParsingException(idxE, $"Unexpected char at: {idxE}");
                         }
 
                         break;
                     }
 
-                    var num = new NumberInfo()
+                    if (number[number.Length - 1] == 'e')
                     {
-                        WholePart = parts[0],
-                        FractionalPart = parts[1],
-                        Exponent = parts[2],
-                        HasNegativeExponent = hasNegativeExponent,
+                        throw new ParsingException(idxE, $"Unexpected char at: {idxE - 1}");
+                    }
+
+                    var numStr =
+                        number.ToString();
+                    var numInfo = new NumberFormatInfo()
+                    {
+                        NumberDecimalSeparator = ".",
                     };
+                    if (!double.TryParse(numStr, NumberStyles.Any, numInfo, out double num))
+                    {
+                        throw new ParsingException(idxE, $"Invalid numeric literal: '{numStr}' starting at: {idxS}");
+                    }
 
                     token = new NumberToken() { IdxS = idxS, IdxE = idxE, Number = num, };
                     return true;
@@ -87,10 +90,6 @@ namespace Xtel.PromoFormula.Parsers
             }
 
             return false;
-        }
-
-        public override void ValidateOccurrence(ICollection<Token> tokens)
-        {
         }
     }
 }

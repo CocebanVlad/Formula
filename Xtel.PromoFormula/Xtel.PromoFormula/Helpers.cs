@@ -29,7 +29,7 @@ namespace Xtel.PromoFormula
 
         public static bool ConsumeWord(in string str, in string word, ref int idx)
         {
-            if (word.Length == 0)
+            if (word.Length == 0 || str.Length < word.Length)
             {
                 return false;
             }
