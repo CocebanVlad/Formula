@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using Xtel.PromoFormula.Exceptions;
+using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Parsers
 {
     public class StringParser : Parser
     {
-        public override bool TryParse(in string str, int idxS, out int idxE, out Token token)
+        public override bool TryParse(in string str, int idxS, out int idxE, out IToken token)
         {
             idxE = idxS;
             token = null;

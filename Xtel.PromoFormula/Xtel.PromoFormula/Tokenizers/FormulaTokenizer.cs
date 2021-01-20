@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Xtel.PromoFormula.Exceptions;
+using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Parsers;
 
 namespace Xtel.PromoFormula.Tokenizers
@@ -24,9 +25,9 @@ namespace Xtel.PromoFormula.Tokenizers
             _parsers.Add(new LiteralParser());
         }
 
-        public override IList<Token> Tokenize(string str)
+        public override IList<IToken> Tokenize(in string str)
         {
-            var tokens = new List<Token>();
+            var tokens = new List<IToken>();
             var idx = 0;
 
             while (idx < str.Length)
@@ -37,7 +38,7 @@ namespace Xtel.PromoFormula.Tokenizers
 
                 foreach (var parser in _parsers)
                 {
-                    if (parser.TryParse(str, idx, out idx, out Token token))
+                    if (parser.TryParse(str, idx, out idx, out IToken token))
                     {
                         parsed = true;
                         tokens.Add(token);

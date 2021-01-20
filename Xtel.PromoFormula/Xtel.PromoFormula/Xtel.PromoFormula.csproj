@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ExpressionBuilders\" />
-    <Folder Include="Expressions\" />
     <Folder Include="Functions\" />
   </ItemGroup>
 

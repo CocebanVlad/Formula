@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xtel.PromoFormula.Interfaces;
 
 namespace Xtel.PromoFormula.Tests.Utils
 {
     public static class TokenizerAssert
     {
-        public static void AssertToken<TToken>(Token token, Action<TToken> action) where TToken : Token
+        public static void AssertToken<TToken>(IToken token, Action<TToken> action) where TToken : IToken
         {
             Assert.IsInstanceOfType(token, typeof(TToken));
             action.Invoke((TToken)token);
