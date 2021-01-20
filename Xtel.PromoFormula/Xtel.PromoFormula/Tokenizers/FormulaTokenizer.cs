@@ -8,7 +8,7 @@ namespace Xtel.PromoFormula.Tokenizers
 {
     public class FormulaTokenizer : Tokenizer
     {
-        private ICollection<Parser> _parsers = new HashSet<Parser>();
+        private IList<Parser> _parsers = new List<Parser>();
 
         public FormulaTokenizer()
         {
@@ -24,9 +24,9 @@ namespace Xtel.PromoFormula.Tokenizers
             _parsers.Add(new LiteralParser());
         }
 
-        public override ICollection<Token> Tokenize(string str)
+        public override IList<Token> Tokenize(string str)
         {
-            var tokens = new HashSet<Token>();
+            var tokens = new List<Token>();
             var idx = 0;
 
             while (idx < str.Length)
@@ -55,7 +55,7 @@ namespace Xtel.PromoFormula.Tokenizers
                     break;
                 }
 
-                throw new ParsingException(idx, $"Unexpected char at: {idx}");
+                throw new ParsingEx(idx, $"Unexpected char at: {idx}");
             }
 
             return tokens;

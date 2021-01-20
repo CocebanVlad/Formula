@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xtel.PromoFormula.Enums;
 
 namespace Xtel.PromoFormula
 {
@@ -70,9 +71,29 @@ namespace Xtel.PromoFormula
                 case '9':
                     return 9;
                 case '0':
-                default:
                     return 0;
             }
+
+            throw new Exception($"{c} not a digit");
+        }
+
+        public static ArithmeticOperation GetArithmeticOperation(char c)
+        {
+            switch (c)
+            {
+                case '+':
+                    return ArithmeticOperation.Add;
+                case '-':
+                    return ArithmeticOperation.Subtract;
+                case '*':
+                    return ArithmeticOperation.Multiply;
+                case '/':
+                    return ArithmeticOperation.Divide;
+                case '%':
+                    return ArithmeticOperation.Mod;
+            }
+
+            throw new Exception($"{c} not an arithmetic symbol");
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             });
             TokenizerAssert.AssertToken<ArithmeticSymbolToken>(tokens[4], (token) =>
             {
-                Assert.AreEqual('*', token.Symbol);
+                Assert.AreEqual(ArithmeticOperation.Multiply, token.Operation);
             });
             TokenizerAssert.AssertToken<ParenthesisToken>(tokens[5], (token) =>
             {
@@ -69,7 +69,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             });
             TokenizerAssert.AssertToken<ArithmeticSymbolToken>(tokens[10], (token) =>
             {
-                Assert.AreEqual(token.Symbol, '/');
+                Assert.AreEqual(ArithmeticOperation.Divide, token.Operation);
             });
             TokenizerAssert.AssertToken<NumberToken>(tokens[11], (token) =>
             {
@@ -107,7 +107,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             });
             TokenizerAssert.AssertToken<ArithmeticSymbolToken>(tokens[4], (token) =>
             {
-                Assert.AreEqual('*', token.Symbol);
+                Assert.AreEqual(ArithmeticOperation.Multiply, token.Operation);
             });
             TokenizerAssert.AssertToken<LiteralToken>(tokens[5], (token) =>
             {
@@ -161,7 +161,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             });
             TokenizerAssert.AssertToken<ArithmeticSymbolToken>(tokens[18], (token) =>
             {
-                Assert.AreEqual('+', token.Symbol);
+                Assert.AreEqual(ArithmeticOperation.Add, token.Operation);
             });
             TokenizerAssert.AssertToken<LiteralToken>(tokens[19], (token) =>
             {
@@ -188,7 +188,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             });
             TokenizerAssert.AssertToken<ArithmeticSymbolToken>(tokens[25], (token) =>
             {
-                Assert.AreEqual('*', token.Symbol);
+                Assert.AreEqual(ArithmeticOperation.Multiply, token.Operation);
             });
             TokenizerAssert.AssertToken<LiteralToken>(tokens[26], (token) =>
             {

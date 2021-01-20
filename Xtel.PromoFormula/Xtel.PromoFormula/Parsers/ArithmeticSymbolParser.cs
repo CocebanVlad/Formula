@@ -17,7 +17,13 @@ namespace Xtel.PromoFormula.Parsers
                 if ("+-*/%".IndexOf(str[idxS]) != -1)
                 {
                     idxE++;
-                    token = new ArithmeticSymbolToken() { IdxS = idxS, IdxE = idxE, Symbol = str[idxS], };
+                    token = new ArithmeticSymbolToken()
+                    {
+                        IdxS = idxS,
+                        IdxE = idxE,
+                        Operation = Helpers.GetArithmeticOperation(str[idxS]),
+                    };
+
                     return true;
                 }
             }

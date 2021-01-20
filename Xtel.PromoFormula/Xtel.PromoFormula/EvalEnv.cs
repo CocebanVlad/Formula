@@ -6,5 +6,6 @@ namespace Xtel.PromoFormula
 {
     public abstract class EvalEnv
     {
+        public abstract IDictionary<string, Fn> Functions { get; }
     }
 }

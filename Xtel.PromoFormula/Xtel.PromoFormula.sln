@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xtel.PromoFormula", "Xtel.PromoFormula\Xtel.PromoFormula.csproj", "{ED20FE3F-796F-41AC-B6BC-6FB0173EE3CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xtel.PromoFormula", "Xtel.PromoFormula\Xtel.PromoFormula.csproj", "{ED20FE3F-796F-41AC-B6BC-6FB0173EE3CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xtel.PromoFormula.Tests", "Xtel.PromoFormula.Tests\Xtel.PromoFormula.Tests.csproj", "{B522C6D6-3921-466A-984E-03095844A4B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xtel.PromoFormula.Tests", "Xtel.PromoFormula.Tests\Xtel.PromoFormula.Tests.csproj", "{B522C6D6-3921-466A-984E-03095844A4B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xtel.PromoFormula.NetFramework.Tests", "Xtel.PromoFormula.NetFramework.Tests\Xtel.PromoFormula.NetFramework.Tests.csproj", "{05988A50-DE23-4DFB-B1FE-AFEEC17B938E}"
 EndProject

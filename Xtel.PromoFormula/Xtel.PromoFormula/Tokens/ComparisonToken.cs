@@ -27,7 +27,7 @@ namespace Xtel.PromoFormula.Tokens
                     return "<";
             }
 
-            throw new Exception("Unknown operator: ComparisonOperator." + Operator.ToString());
+            throw new Exception($"Unknown operator: ComparisonOperator.{Operator}");
         }
     }
 }

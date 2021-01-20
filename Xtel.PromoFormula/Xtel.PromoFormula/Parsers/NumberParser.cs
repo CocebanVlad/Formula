@@ -38,7 +38,7 @@ namespace Xtel.PromoFormula.Parsers
                         {
                             if (head != 0)
                             {
-                                throw new ParsingException(idxE, $"Unexpected char at: {idxE}");
+                                throw new ParsingEx(idxE, $"Unexpected char at: {idxE}");
                             }
 
                             head = 1;
@@ -46,15 +46,15 @@ namespace Xtel.PromoFormula.Parsers
                             continue;
                         }
 
-                        if (str[idxE] == 'e' || str[idxE] == 'E')
+                        if ("eE".IndexOf(str[idxE]) > -1)
                         {
                             if (head == 2)
                             {
-                                throw new ParsingException(idxE, $"Unexpected char at: {idxE}");
+                                throw new ParsingEx(idxE, $"Unexpected char at: {idxE}");
                             }
 
                             head = 2;
-                            number.Append('e');
+                            number.Append('E');
 
                             if (str.Length > idxE + 1 && (str[idxE + 1] == '+' || str[idxE + 1] == '-'))
                             {
@@ -68,9 +68,9 @@ namespace Xtel.PromoFormula.Parsers
                         break;
                     }
 
-                    if (number[number.Length - 1] == 'e')
+                    if ("_eE".IndexOf(str[idxE - 1]) > -1)
                     {
-                        throw new ParsingException(idxE, $"Unexpected char at: {idxE - 1}");
+                        throw new ParsingEx(idxE - 1, $"Unexpected char at: {idxE - 1}");
                     }
 
                     var numStr =
@@ -81,7 +81,7 @@ namespace Xtel.PromoFormula.Parsers
                     };
                     if (!double.TryParse(numStr, NumberStyles.Any, numInfo, out double num))
                     {
-                        throw new ParsingException(idxE, $"Invalid numeric literal: '{numStr}' starting at: {idxS}");
+                        throw new ParsingEx(idxS, idxE, $"Invalid numeric literal: '{numStr}' starting at: {idxS}");
                     }
 
                     token = new NumberToken() { IdxS = idxS, IdxE = idxE, Number = num, };

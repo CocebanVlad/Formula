@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Xtel.PromoFormula
 {
-    public abstract class Tokenizer
+    public abstract class Fn
     {
-        public abstract IList<Token> Tokenize(string str);
+        public abstract object Exec(object[] args);
     }
 }

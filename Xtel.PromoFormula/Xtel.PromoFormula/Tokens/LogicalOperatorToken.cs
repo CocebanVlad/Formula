@@ -19,7 +19,7 @@ namespace Xtel.PromoFormula.Tokens
                     return "||";
             }
 
-            throw new Exception("Unknown operator: LogicalOperator." + Operator.ToString());
+            throw new Exception($"Unknown operator: LogicalOperator.{Operator}");
         }
     }
 }

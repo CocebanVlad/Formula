@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Xtel.PromoFormula\Xtel.PromoFormula.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ExpressionBuilders\" />
+  </ItemGroup>
+
 </Project>

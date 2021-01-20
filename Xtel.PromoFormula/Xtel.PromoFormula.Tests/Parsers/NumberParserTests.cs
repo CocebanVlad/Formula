@@ -44,13 +44,17 @@ namespace Xtel.PromoFormula.Tests.Parsers
 
             ParserAssert.IsTrue(_parser, "1_23", 4, out token);
             Assert.AreEqual(1_23, token.Number);
+
+            ParserAssert.IsTrue(_parser, "1,23", 1, out token);
+            Assert.AreEqual(1, token.Number);
         }
 
         [TestMethod]
         public void TryParse_InvalidNumericLiteral_MustThrowException()
         {
-            Assert.ThrowsException<ParsingException>(() => _parser.TryParse("1e2.4", 0, out _, out _));
-            Assert.ThrowsException<ParsingException>(() => _parser.TryParse("1234e", 0, out _, out _));
+            Assert.ThrowsException<ParsingEx>(() => _parser.TryParse("1e2.4", 0, out _, out _));
+            Assert.ThrowsException<ParsingEx>(() => _parser.TryParse("1234e", 0, out _, out _));
+            Assert.ThrowsException<ParsingEx>(() => _parser.TryParse("1234_", 0, out _, out _));
         }
     }
 }
