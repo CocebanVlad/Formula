@@ -8,6 +8,7 @@ namespace Xtel.PromoFormula.Interfaces
     {
         int IdxS { get; }
         int IdxE { get; }
+        string ReturnType { get; }
 
         object Eval(IEvalEnv env);
     }

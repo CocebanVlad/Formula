@@ -8,24 +8,19 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 {
     public class ConstantExprBuilder : ExprBuilder
     {
-        public override bool TryBuild(IList<IToken> tokens, int idxS, out int idxE, IList<IExpr> ops, out IExpr expr)
+        public override IExpr Build(BuildContext ctx, Func<IExpr> next)
         {
-            idxE = idxS;
-            expr = null;
-
-            if (tokens[idxS] is IConstantToken token)
+            if (ctx.Token is IConstantToken token)
             {
-                idxE++;
-                expr = new ConstantExpr()
+                ctx.MoveToTheNextIndex();
+
+                return new ConstantExpr()
                 {
                     Token = token,
                 };
-                ops.Add(expr);
-
-                return true;
             }
 
-            return false;
+            return null;
         }
     }
 }

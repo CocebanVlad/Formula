@@ -9,7 +9,8 @@ namespace Xtel.PromoFormula.Tokens
     {
         public double Number { get; set; }
 
-        public object GetValue() => Number;
+        public string ConstValueType => Constants.NUMBER_TYPE;
+        public object ConstValue => Number;
 
         public override string ToString() => Number.ToString();
     }

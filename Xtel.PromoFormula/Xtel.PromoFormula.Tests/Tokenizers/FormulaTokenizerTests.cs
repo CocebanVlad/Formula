@@ -85,7 +85,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
         public void Tokenize_Formula_02_MustReturnExpectedTokens()
         {
             var formula = "SOURCE(\"VOL_ACTUALS_SELL_IN_MAN\") * "
-                + "IIF(SOURCE(\"WEIGHT_UOM_RES\") == 1, 1, 0) + CONV_FACT(\"EP\", \"SC\") * SOURCE(\"VOL_ACTUALS_SELL_IN_MAN\")";
+                + "IIF(SOURCE(\"WEIGHT_UOM_RES\") == 1, -1, 0) + CONV_FACT(\"EP\", \"SC\") * SOURCE(\"VOL_ACTUALS_SELL_IN_MAN\")";
             var tokens = _tokenizer.Tokenize(formula).ToList();
             Assert.AreEqual(30, tokens.Count);
 
@@ -146,7 +146,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             });
             TokenizerAssert.AssertToken<NumberToken>(tokens[14], (token) =>
             {
-                Assert.AreEqual(1, token.Number);
+                Assert.AreEqual(-1, token.Number);
             });
             TokenizerAssert.AssertToken<SeparatorToken>(tokens[15], (token) =>
             {

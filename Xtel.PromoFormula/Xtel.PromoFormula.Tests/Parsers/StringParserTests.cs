@@ -29,8 +29,8 @@ namespace Xtel.PromoFormula.Tests.Parsers
         [TestMethod]
         public void TryParse_Str_MustThrowException()
         {
-            Assert.ThrowsException<ParsingEx>(() => _parser.TryParse("\"hello world\'", 0, out _, out _));
-            Assert.ThrowsException<ParsingEx>(() => _parser.TryParse("\'hello world\"", 0, out _, out _));
+            Assert.ThrowsException<ParseEx>(() => _parser.TryParse("\"hello world\'", 0, out _, out _));
+            Assert.ThrowsException<ParseEx>(() => _parser.TryParse("\'hello world\"", 0, out _, out _));
         }
     }
 }

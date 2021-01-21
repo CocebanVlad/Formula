@@ -36,7 +36,7 @@ namespace Xtel.PromoFormula.Parsers
                         }
                     }
 
-                    throw new ParsingEx(idxE, $"Unexpected char at: {idxS}");
+                    throw new ParseEx(idxE, $"Unexpected char at: {idxS}");
                 }
             }
 

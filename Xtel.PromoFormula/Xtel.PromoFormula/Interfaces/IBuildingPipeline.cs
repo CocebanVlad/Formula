@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Xtel.PromoFormula.Interfaces
 {
-    public interface IConstantToken : IToken
+    public interface IBuildingPipeline
     {
-        string ConstValueType { get; }
-        object ConstValue { get; }
+        IList<IExpr> Build(IList<IToken> tokens);
     }
 }

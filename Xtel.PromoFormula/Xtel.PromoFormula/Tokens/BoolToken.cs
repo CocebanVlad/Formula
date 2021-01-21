@@ -9,7 +9,8 @@ namespace Xtel.PromoFormula.Tokens
     {
         public bool Value { get; set; }
 
-        public object GetValue() => Value;
+        public string ConstValueType => Constants.BOOL_TYPE;
+        public object ConstValue => Value;
 
         public override string ToString() => Value ? "true" : "false";
     }
