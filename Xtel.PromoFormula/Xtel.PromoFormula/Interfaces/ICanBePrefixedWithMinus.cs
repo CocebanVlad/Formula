@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Xtel.PromoFormula.Interfaces
 {
-    public interface IExprBuilder
+    public interface ICanBePrefixedWithMinus : IExpr
     {
-        IExpr Build(BuildContext context, IExprBuilder initiator, Func<IExpr> next);
+        object ApplyMinus(IEvalEnv env);
     }
 }

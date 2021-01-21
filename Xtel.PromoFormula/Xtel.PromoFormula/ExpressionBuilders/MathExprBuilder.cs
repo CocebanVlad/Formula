@@ -11,13 +11,18 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 {
     public class MathExprBuilder : ExprBuilder
     {
-        public override IExpr Build(BuildContext ctx, Func<IExpr> next)
+        public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
             if (ctx.Token is ArithmeticSymbolToken token)
             {
+                if (initiator is MathExprBuilder)
+                {
+                    return null;
+                }
+
                 if (ctx.BuiltExpressions.Count == 0)
                 {
-                    throw new BuildEx(token.IdxS, token.IdxE, $"Unexpected token: {token}");
+                    return null;
                 }
 
                 var prevExpr =

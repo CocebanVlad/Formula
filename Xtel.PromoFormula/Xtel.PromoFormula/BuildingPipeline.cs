@@ -10,14 +10,11 @@ namespace Xtel.PromoFormula
     {
         protected abstract IList<IExprBuilder> Builders { get; }
 
-        protected virtual IExpr Cycle(BuildContext context, int initBuilder)
+        protected virtual IExpr Cycle(BuildContext context, IExprBuilder initiator = null)
         {
-            initBuilder %= Builders.Count;
-
             for (var idx = 0; idx < Builders.Count; idx++)
             {
-                var builder = (initBuilder + idx) % Builders.Count;
-                var expr = Builders[builder].Build(context, () => Cycle(context, initBuilder + 1));
+                var expr = Builders[idx].Build(context, initiator, () => Cycle(context, Builders[idx]));
                 if (expr != null)
                 {
                     return expr;
@@ -37,21 +34,10 @@ namespace Xtel.PromoFormula
 
             while (ctx.HasToken())
             {
-                var built = false;
-
-                for (var idx = 0; idx < Builders.Count; idx++)
+                var expr = Cycle(ctx);
+                if (expr != null)
                 {
-                    var expr = Cycle(ctx, idx);
-                    if (expr != null)
-                    {
-                        built = true;
-                        ctx.BuiltExpressions.Add(expr);
-                        break;
-                    }
-                }
-
-                if (built)
-                {
+                    ctx.BuiltExpressions.Add(expr);
                     continue;
                 }
 

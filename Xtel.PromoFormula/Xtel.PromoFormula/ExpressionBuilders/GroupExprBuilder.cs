@@ -10,7 +10,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 {
     public class GroupExprBuilder : ExprBuilder
     {
-        public override IExpr Build(BuildContext ctx, Func<IExpr> next)
+        public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
             if (ctx.Token is ParenthesisToken openToken && openToken.IsOpen)
             {

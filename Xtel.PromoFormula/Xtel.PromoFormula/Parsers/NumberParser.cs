@@ -25,16 +25,30 @@ namespace Xtel.PromoFormula.Parsers
                 {
                     if (idxS > 0)
                     {
-                        var tempIdxS = idxS - 1;
-                        Helpers.ConsumeWhitespace(str, ref tempIdxS, ParsingDirection.Left);
-                        if (",(".IndexOf(str[tempIdxS]) == -1)
+                        var tempIdx = idxS - 1;
+                        Helpers.ConsumeWhitespace(str, ref tempIdx, ParsingDirection.Left);
+
+                        if (str[idxS] == '+')
                         {
-                            return false;
+                            if ("-*/,(".IndexOf(str[tempIdx]) == -1 || (str[tempIdx] == '+' && str[idxS - 1] != ' '))
+                            {
+                                return false;
+                            }
+                        }
+
+                        if (str[idxS] == '-')
+                        {
+                            if ("+*/,(".IndexOf(str[tempIdx]) == -1 || (str[tempIdx] == '-' && str[idxS - 1] != ' '))
+                            {
+                                return false;
+                            }
                         }
                     }
 
                     number.Append(str[idxS]);
                     idxE++;
+
+                    Helpers.ConsumeWhitespace(str, ref idxE);
                 }
 
                 if (char.IsDigit(str[idxE]))
@@ -108,6 +122,8 @@ namespace Xtel.PromoFormula.Parsers
                     return true;
                 }
             }
+
+            idxE = idxS; // reset
 
             return false;
         }

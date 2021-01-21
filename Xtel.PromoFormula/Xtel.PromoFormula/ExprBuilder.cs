@@ -7,6 +7,6 @@ namespace Xtel.PromoFormula
 {
     public abstract class ExprBuilder : IExprBuilder
     {
-        public abstract IExpr Build(BuildContext context, Func<IExpr> next);
+        public abstract IExpr Build(BuildContext context, IExprBuilder initiator, Func<IExpr> next);
     }
 }
