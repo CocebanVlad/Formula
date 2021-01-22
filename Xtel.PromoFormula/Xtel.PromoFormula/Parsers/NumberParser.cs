@@ -28,20 +28,9 @@ namespace Xtel.PromoFormula.Parsers
                         var tempIdx = idxS - 1;
                         Helpers.ConsumeWhitespace(str, ref tempIdx, ParsingDirection.Left);
 
-                        if (str[idxS] == '+')
+                        if ("+-*/,(".IndexOf(str[tempIdx]) == -1)
                         {
-                            if ("-*/,(".IndexOf(str[tempIdx]) == -1 || (str[tempIdx] == '+' && str[idxS - 1] != ' '))
-                            {
-                                return false;
-                            }
-                        }
-
-                        if (str[idxS] == '-')
-                        {
-                            if ("+*/,(".IndexOf(str[tempIdx]) == -1 || (str[tempIdx] == '-' && str[idxS - 1] != ' '))
-                            {
-                                return false;
-                            }
+                            return false;
                         }
                     }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Expressions;
 using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;
@@ -21,10 +20,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                 while (true)
                 {
                     innerExpr = next();
-                    if (innerExpr == null)
-                    {
-                        throw new BuildEx(openToken.IdxS, openToken.IdxE, $"Unexpected token: {openToken}");
-                    }
+                    ThrowIfExprIsNull(innerExpr, openToken);
 
                     if (ctx.Token is ParenthesisToken token && !token.IsOpen)
                     {

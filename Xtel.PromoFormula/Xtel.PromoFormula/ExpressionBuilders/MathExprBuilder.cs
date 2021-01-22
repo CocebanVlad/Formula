@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Expressions;
 using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;
@@ -32,10 +31,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                     ctx.MoveToTheNextIndex();
 
                     var nextExpr = next();
-                    if (nextExpr == null)
-                    {
-                        throw new BuildEx(token.IdxS, token.IdxE, $"Unexpected token: {token}");
-                    }
+                    ThrowIfExprIsNull(nextExpr, token);
 
                     if (nextExpr.ReturnType == Constants.NUMBER_TYPE)
                     {

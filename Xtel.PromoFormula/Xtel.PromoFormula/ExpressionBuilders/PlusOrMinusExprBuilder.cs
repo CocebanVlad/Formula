@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Expressions;
 using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.ExpressionBuilders
 {
-    public class NegativeExprBuilder : ExprBuilder
+    public class PlusOrMinusExprBuilder : ExprBuilder
     {
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
-            if (ctx.Token is ArithmeticSymbolToken t && t.Operation == ArithmeticOperation.Subtract)
+            if (ctx.Token is ArithmeticSymbolToken t
+                && (t.Operation == ArithmeticOperation.Add || t.Operation == ArithmeticOperation.Subtract))
             {
                 ctx.MoveToTheNextIndex();
 
                 var nextExpr = next();
-                if (nextExpr == null)
-                {
-                    throw new BuildEx(t.IdxS, t.IdxE, $"Unexpected token: {t}");
-                }
+                ThrowIfExprIsNull(nextExpr, t);
 
-                if (nextExpr is ICanBePrefixedWithMinus expr)
+                if (nextExpr is ICanBePrefixedWithPlusOrMinus expr)
                 {
-                    return new NegativeExpr() { Expr = expr };
+                    return new PlusOrMinusExpr(t.Operation == ArithmeticOperation.Add)
+                    {
+                        Expr = expr,
+                    };
                 }
             }
 

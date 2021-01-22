@@ -6,7 +6,7 @@ using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
-    public class NumberExpr : ConstantExpr, ICanBePrefixedWithPlus, ICanBePrefixedWithMinus
+    public class NumberExpr : ConstantExpr, ICanBePrefixedWithPlusOrMinus
     {
         public new NumberToken Token => (NumberToken)base.Token;
 

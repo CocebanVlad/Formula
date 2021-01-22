@@ -55,6 +55,10 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
             Assert.AreEqual(1, exprs.Count);
             Assert.AreEqual(-1, (double)exprs.First().Eval(null));
 
+            exprs = _buildingPipeline.Build(_tokenizer.Tokenize("+-+-+-+-+--1"));
+            Assert.AreEqual(1, exprs.Count);
+            Assert.AreEqual(1, (double)exprs.First().Eval(null));
+
             exprs = _buildingPipeline.Build(_tokenizer.Tokenize("-1 + -1"));
             Assert.AreEqual(1, exprs.Count);
             Assert.AreEqual(-2, (double)exprs.First().Eval(null));
@@ -74,9 +78,6 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
 
             Assert.ThrowsException<BuildEx>(() =>
                 _buildingPipeline.Build(_tokenizer.Tokenize("((1) + (1)) + 1) * 10")));
-
-            Assert.ThrowsException<BuildEx>(() =>
-                _buildingPipeline.Build(_tokenizer.Tokenize("+-+-+-+-+--1")));
 
             Assert.ThrowsException<BuildEx>(() =>
                 _buildingPipeline.Build(_tokenizer.Tokenize("(1)-1)")));

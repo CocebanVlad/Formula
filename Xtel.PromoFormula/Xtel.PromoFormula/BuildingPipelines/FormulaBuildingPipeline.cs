@@ -13,8 +13,7 @@ namespace Xtel.PromoFormula.BuildingPipelines
             new ConstantExprBuilder(),
             new GroupExprBuilder(),
             new MathExprBuilder(),
-            new NegativeExprBuilder(),
-            new PositiveExprBuilder(),
+            new PlusOrMinusExprBuilder(),
         };
     }
 }
