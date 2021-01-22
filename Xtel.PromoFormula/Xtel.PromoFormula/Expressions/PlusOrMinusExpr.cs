@@ -23,6 +23,6 @@ namespace Xtel.PromoFormula.Expressions
 
         public override object Eval(IEvalEnv env) => IsPlus ? ApplyPlus(env) : ApplyMinus(env);
 
-        public override string ToString() => "+" + Expr.ToString();
+        public override string ToString() => (IsPlus ? "+" : "-") + Expr.ToString();
     }
 }

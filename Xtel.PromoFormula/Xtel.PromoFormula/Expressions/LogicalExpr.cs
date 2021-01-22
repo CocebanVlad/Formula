@@ -44,5 +44,7 @@ namespace Xtel.PromoFormula.Expressions
             throw new RuntimeEx(IdxS, IdxE,
                 string.Format(tr.unknown_operator__0, Token));
         }
+
+        public override string ToString() => $"{A} {Token} {B}";
     }
 }

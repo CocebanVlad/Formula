@@ -13,5 +13,7 @@ namespace Xtel.PromoFormula.Expressions
         public object Negate(IEvalEnv env) => Expr.Eval(env);
 
         public override object Eval(IEvalEnv env) => Expr.Negate(env);
+
+        public override string ToString() => "!" + Expr.ToString();
     }
 }

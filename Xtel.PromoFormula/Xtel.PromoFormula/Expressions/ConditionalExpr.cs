@@ -136,5 +136,7 @@ namespace Xtel.PromoFormula.Expressions
                     Constants.StringType
                     ));
         }
+
+        public override string ToString() => $"{A} {Token} {B}";
     }
 }

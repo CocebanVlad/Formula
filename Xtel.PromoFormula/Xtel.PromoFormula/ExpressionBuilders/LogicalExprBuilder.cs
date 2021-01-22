@@ -31,16 +31,18 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
                 ctx.MoveToTheNextIndex();
 
-                var nextExpr = next();
-                ThrowIfExprIsNull(nextExpr, t);
-
-                if (nextExpr.ReturnType != Constants.BoolType)
+                IExpr nextExpr;
+                while (true)
                 {
-                    throw new BuildEx(t.IdxS, t.IdxE,
-                        string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
-                            t,
-                            nextExpr.ReturnType
-                            ));
+                    nextExpr = next();
+                    ThrowIfExprIsNull(nextExpr, t);
+
+                    if (nextExpr.ReturnType == Constants.BoolType)
+                    {
+                        break;
+                    }
+
+                    ctx.BuiltExpressions.Add(nextExpr);
                 }
 
                 ctx.BuiltExpressions

@@ -152,6 +152,9 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
 
             EvalAssert.IsExpectedEvalResult<bool>(
                 _tokenizer, _pipeline, null, "(1 + 1 * 2 == 4 + 1) || ((4 / 2) % 2 == 0)", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "1 + 1 + 1 == 4 || 1 + 2 == 3", true);
         }
     }
 }
