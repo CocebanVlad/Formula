@@ -9,20 +9,20 @@ namespace Xtel.PromoFormula.ExpressionBuilders
     {
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
-            if (ctx.Token is ParenthesisToken openToken && openToken.IsOpen)
+            if (ctx.Token is ParenthesisToken openT && openT.IsOpen)
             {
                 ctx.MoveToTheNextIndex();
 
                 IExpr innerExpr;
-                ParenthesisToken closeToken;
+                ParenthesisToken closeT;
                 while (true)
                 {
                     innerExpr = next();
-                    ThrowIfExprIsNull(innerExpr, openToken);
+                    ThrowIfExprIsNull(innerExpr, openT);
 
                     if (ctx.Token is ParenthesisToken token && !token.IsOpen)
                     {
-                        closeToken = token;
+                        closeT = token;
                         break;
                     }
 
@@ -30,7 +30,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                 }
 
                 ctx.MoveToTheNextIndex();
-                return new GroupExpr() { OpenToken = openToken, CloseToken = closeToken, InnerExpr = innerExpr, };
+                return new GroupExpr() { OpenToken = openT, CloseToken = closeT, InnerExpr = innerExpr, };
             }
 
             return null;

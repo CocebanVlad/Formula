@@ -7,31 +7,38 @@ using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.ExpressionBuilders
 {
-    public class ConditionalExprBuilder : ExprBuilder
+    public class LogicalExprBuilder : ExprBuilder
     {
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
-            if (ctx.Token is ComparisonToken t)
+            if (ctx.Token is LogicalOperatorToken t)
             {
-                if (initiator is ConditionalExprBuilder || ctx.BuiltExpressions.Count == 0)
+                if (initiator is LogicalExprBuilder || ctx.BuiltExpressions.Count == 0)
                 {
                     return null;
                 }
 
                 var prevExpr =
                     ctx.BuiltExpressions.Last();
+                if (prevExpr.ReturnType != Constants.BoolType)
+                {
+                    throw new BuildEx(t.IdxS, t.IdxE,
+                        string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
+                            t,
+                            prevExpr.ReturnType
+                            ));
+                }
 
                 ctx.MoveToTheNextIndex();
 
                 var nextExpr = next();
                 ThrowIfExprIsNull(nextExpr, t);
 
-                if (prevExpr.ReturnType != nextExpr.ReturnType)
+                if (nextExpr.ReturnType != Constants.BoolType)
                 {
                     throw new BuildEx(t.IdxS, t.IdxE,
-                        string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1__and__2,
+                        string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
                             t,
-                            prevExpr.ReturnType,
                             nextExpr.ReturnType
                             ));
                 }
@@ -39,7 +46,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                 ctx.BuiltExpressions
                     .RemoveAt(ctx.BuiltExpressions.Count - 1);
 
-                return new ConditionalExpr() { Token = t, A = prevExpr, B = nextExpr, };
+                return new LogicalExpr() { Token = t, A = prevExpr, B = nextExpr, };
             }
 
             return null;

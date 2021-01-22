@@ -1,8 +1,9 @@
-﻿using Xtel.PromoFormula.Tokens;
+﻿using Xtel.PromoFormula.Interfaces;
+using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
-    public class BoolExpr : ConstantExpr
+    public class BoolExpr : ConstantExpr, ICanBeNegated
     {
         public new BoolToken Token => (BoolToken)base.Token;
 
@@ -10,5 +11,7 @@ namespace Xtel.PromoFormula.Expressions
         {
             base.Token = token;
         }
+
+        public object Negate(IEvalEnv env) => !(bool)base.Eval(env);
     }
 }

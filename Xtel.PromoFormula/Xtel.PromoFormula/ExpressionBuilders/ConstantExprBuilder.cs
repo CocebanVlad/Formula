@@ -8,11 +8,11 @@ namespace Xtel.PromoFormula.ExpressionBuilders
     {
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
-            if (ctx.Token is IConstantToken token)
+            if (ctx.Token is IConstantToken t)
             {
                 ctx.MoveToTheNextIndex();
 
-                return ConstantExprFactory.Create(token);
+                return ConstantExprFactory.Create(t);
             }
 
             return null;

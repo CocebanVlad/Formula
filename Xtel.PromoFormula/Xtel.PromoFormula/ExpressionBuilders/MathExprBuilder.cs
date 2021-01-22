@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Expressions;
 using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;
@@ -10,7 +11,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
     {
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
-            if (ctx.Token is ArithmeticSymbolToken token)
+            if (ctx.Token is ArithmeticSymbolToken t)
             {
                 if (initiator is MathExprBuilder || ctx.BuiltExpressions.Count == 0)
                 {
@@ -19,33 +20,63 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
                 var prevExpr =
                     ctx.BuiltExpressions.Last();
-                if (prevExpr.ReturnType == Constants.NumberType)
+
+                IMathExprSuperior superior = null;
+                if (prevExpr is IMathExprSuperior)
                 {
-                    ctx.MoveToTheNextIndex();
+                    superior = (IMathExprSuperior)prevExpr;
+                    prevExpr = superior.B;
+                }
 
-                    var nextExpr = next();
-                    ThrowIfExprIsNull(nextExpr, token);
+                if (prevExpr.ReturnType != Constants.NumberType)
+                {
+                    throw new BuildEx(t.IdxS, t.IdxE,
+                        string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
+                            t,
+                            prevExpr.ReturnType
+                            ));
+                }
 
-                    if (nextExpr.ReturnType == Constants.NumberType)
-                    {
-                        ctx.BuiltExpressions
-                            .RemoveAt(ctx.BuiltExpressions.Count - 1);
+                ctx.MoveToTheNextIndex();
 
-                        var mathExpr = new MathExpr() { Token = token, A = prevExpr, B = nextExpr };
+                var nextExpr = next();
+                ThrowIfExprIsNull(nextExpr, t);
 
-                        if (prevExpr is MathExpr prevMathExpr &&
-                            Helpers.GetArithmeticOperationPriority(token.Operation) > Helpers.GetArithmeticOperationPriority(prevMathExpr.Token.Operation))
-                        {
-                            // rearrange expressions based on operation priority: e.g. "((1 + 1) * 10)" -> "(1 + (1 * 10))"
-                            mathExpr.A = prevMathExpr.B;
-                            prevMathExpr.B = mathExpr;
+                if (nextExpr.ReturnType != Constants.NumberType)
+                {
+                    throw new BuildEx(t.IdxS, t.IdxE,
+                        string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
+                            t,
+                            nextExpr.ReturnType
+                            ));
+                }
 
-                            // keep previous math expression as the principal one
-                            mathExpr = prevMathExpr;
-                        }
+                ctx.BuiltExpressions
+                    .RemoveAt(ctx.BuiltExpressions.Count - 1);
 
-                        return mathExpr;
-                    }
+                var mathExpr = new MathExpr() { Token = t, A = prevExpr, B = nextExpr };
+
+                if (prevExpr is MathExpr prevMathExpr &&
+                        Helpers.GetArithmeticOperationPriority(t.Operation) >
+                        Helpers.GetArithmeticOperationPriority(prevMathExpr.Token.Operation)
+                        )
+                {
+                    // rearrange expressions based on operation priority: e.g. "((1 + 1) * 10)" -> "(1 + (1 * 10))"
+                    mathExpr.A = prevMathExpr.B;
+                    prevMathExpr.B = mathExpr;
+
+                    // keep previous math expression as the principal one
+                    mathExpr = prevMathExpr;
+                }
+
+                if (superior != null)
+                {
+                    superior.B = mathExpr;
+                    return superior;
+                }
+                else
+                {
+                    return mathExpr;
                 }
             }
 

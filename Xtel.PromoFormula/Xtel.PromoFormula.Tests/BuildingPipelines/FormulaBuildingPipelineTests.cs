@@ -137,5 +137,21 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
             EvalAssert.IsExpectedEvalResult<bool>(
                 _tokenizer, _pipeline, null, "\"hello\" != 'world'", true);
         }
+
+        [TestMethod]
+        public void Build_LogicalExpr_MustReturnExpectedEvalValue()
+        {
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "true && true", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "true && false", false);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "true || false", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "(1 + 1 * 2 == 4 + 1) || ((4 / 2) % 2 == 0)", true);
+        }
     }
 }

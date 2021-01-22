@@ -5,7 +5,7 @@ using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
-    public class ConditionalExpr : Expr, ICanBeNegated
+    public class ConditionalExpr : Expr, IHasAAndB, ICanBeNegated, IMathExprSuperior
     {
         public ComparisonToken Token { get; set; }
         public IExpr A { get; set; }

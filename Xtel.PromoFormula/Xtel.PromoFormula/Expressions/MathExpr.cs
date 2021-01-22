@@ -5,7 +5,7 @@ using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
-    public class MathExpr : Expr, ICanBePrefixedWithPlusOrMinus
+    public class MathExpr : Expr, IHasAAndB, ICanBePrefixedWithPlusOrMinus
     {
         public ArithmeticSymbolToken Token { get; set; }
         public IExpr A { get; set; }
