@@ -7,7 +7,7 @@ namespace Xtel.PromoFormula.Tokens
         public string String { get; set; }
         public char NotationChar { get; set; }
 
-        public string ConstValueType => Constants.STRING_TYPE;
+        public string ConstValueType => Constants.StringType;
         public object ConstValue => String;
 
         public override string ToString() => NotationChar + String + NotationChar;

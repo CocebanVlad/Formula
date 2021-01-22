@@ -2,8 +2,8 @@
 {
     public static class Constants
     {
-        public const string BOOL_TYPE = "bool";
-        public const string NUMBER_TYPE = "number";
-        public const string STRING_TYPE = "string";
+        public const string BoolType = "bool";
+        public const string NumberType = "number";
+        public const string StringType = "string";
     }
 }

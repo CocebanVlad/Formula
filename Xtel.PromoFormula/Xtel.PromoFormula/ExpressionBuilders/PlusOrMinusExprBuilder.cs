@@ -1,5 +1,6 @@
 ﻿using System;
 using Xtel.PromoFormula.Enums;
+using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Expressions;
 using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;
@@ -20,6 +21,15 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
                 if (nextExpr is ICanBePrefixedWithPlusOrMinus expr)
                 {
+                    if (expr.ReturnType != Constants.NumberType)
+                    {
+                        throw new BuildEx(t.IdxS, expr.IdxE,
+                            string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
+                                t,
+                                expr.ReturnType
+                                ));
+                    }
+
                     return new PlusOrMinusExpr(t.Operation == ArithmeticOperation.Add)
                     {
                         Expr = expr,

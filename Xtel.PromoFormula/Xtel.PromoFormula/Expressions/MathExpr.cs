@@ -13,18 +13,20 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => A.IdxS;
         public override int IdxE => B.IdxE;
-        public override string ReturnType => Constants.NUMBER_TYPE;
+        public override string ReturnType => Constants.NumberType;
 
         public override object Eval(IEvalEnv env)
         {
             if (!(A.Eval(env) is double a))
             {
-                throw new RuntimeEx(A.IdxS, A.IdxE, $"Is not a number: {A.GetType()}");
+                throw new RuntimeEx(A.IdxS, A.IdxE,
+                    string.Format(tr._0__is_not__1__type, "A", Constants.NumberType));
             }
 
             if (!(B.Eval(env) is double b))
             {
-                throw new RuntimeEx(B.IdxS, B.IdxE, $"Is not a number: {A.GetType()}");
+                throw new RuntimeEx(A.IdxS, A.IdxE,
+                    string.Format(tr._0__is_not__1__type, "A", Constants.NumberType));
             }
 
             switch (Token.Operation)
@@ -41,8 +43,8 @@ namespace Xtel.PromoFormula.Expressions
                     return a % b;
             }
 
-            throw new RuntimeEx(Token.IdxS, Token.IdxE,
-                $"Unknown operation: ArithmeticOperation.{Token.Operation}");
+            throw new RuntimeEx(IdxS, IdxE,
+                string.Format(tr.unknown_operation__0, Token));
         }
 
         public object ApplyPlus(IEvalEnv env) => +(double)Eval(env);

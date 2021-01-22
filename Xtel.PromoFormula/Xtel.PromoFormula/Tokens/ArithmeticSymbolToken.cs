@@ -23,7 +23,10 @@ namespace Xtel.PromoFormula.Tokens
                     return "%";
             }
 
-            throw new Exception($"Unknown operation: ArithmeticOperation.{Operation}");
+            throw new Exception(string.Format(
+                tr.unknown_operation__0,
+                Operation
+                ));
         }
     }
 }

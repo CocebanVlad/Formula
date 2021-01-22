@@ -57,7 +57,8 @@ namespace Xtel.PromoFormula.Parsers
                         {
                             if (head != 0)
                             {
-                                throw new ParseEx(idxE, $"Unexpected char at: {idxE}");
+                                throw new ParseEx(idxE,
+                                    string.Format(tr.unexpected_char_at__0, idxE));
                             }
 
                             head = 1;
@@ -69,7 +70,8 @@ namespace Xtel.PromoFormula.Parsers
                         {
                             if (head == 2)
                             {
-                                throw new ParseEx(idxE, $"Unexpected char at: {idxE}");
+                                throw new ParseEx(idxE,
+                                    string.Format(tr.unexpected_char_at__0, idxE));
                             }
 
                             head = 2;
@@ -89,7 +91,8 @@ namespace Xtel.PromoFormula.Parsers
 
                     if ("_eE".IndexOf(str[idxE - 1]) > -1)
                     {
-                        throw new ParseEx(idxE - 1, $"Unexpected char at: {idxE - 1}");
+                        throw new ParseEx(idxE - 1,
+                            string.Format(tr.unexpected_char_at__0, idxE - 1));
                     }
 
                     var numStr =
@@ -102,7 +105,7 @@ namespace Xtel.PromoFormula.Parsers
                     };
                     if (!double.TryParse(numStr, NumberStyles.Any, numInfo, out double num))
                     {
-                        throw new ParseEx(idxS, idxE, $"Invalid numeric literal: '{numStr}' starting at: {idxS}");
+                        throw new ParseEx(idxS, idxE, tr.invalid_numeric_literal);
                     }
 
                     token = new NumberToken() { IdxS = idxS, IdxE = idxE, Number = num, };

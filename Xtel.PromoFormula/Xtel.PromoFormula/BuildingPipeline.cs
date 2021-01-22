@@ -44,7 +44,8 @@ namespace Xtel.PromoFormula
                     break;
                 }
 
-                throw new BuildEx(ctx.Token.IdxS, ctx.Token.IdxE, $"Unexpected token: {ctx.Token}");
+                throw new BuildEx(ctx.Token.IdxS, ctx.Token.IdxE, string.Format(
+                    tr.unexpected_token__0, ctx.Token));
             }
 
             return ctx.BuiltExpressions;

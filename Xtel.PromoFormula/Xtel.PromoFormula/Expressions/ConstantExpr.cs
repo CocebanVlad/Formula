@@ -40,7 +40,8 @@ namespace Xtel.PromoFormula.Expressions
                 return new StringExpr((StringToken)t);
             }
 
-            throw new BuildEx(t.IdxS, t.IdxE, $"Unknown constant token: {t.GetType()}");
+            throw new BuildEx(t.IdxS, t.IdxE,
+                string.Format(tr.unknown_constant_token__0, t.GetType()));
         }
     }
 }

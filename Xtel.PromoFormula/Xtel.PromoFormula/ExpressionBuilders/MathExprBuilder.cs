@@ -12,26 +12,21 @@ namespace Xtel.PromoFormula.ExpressionBuilders
         {
             if (ctx.Token is ArithmeticSymbolToken token)
             {
-                if (initiator is MathExprBuilder)
-                {
-                    return null;
-                }
-
-                if (ctx.BuiltExpressions.Count == 0)
+                if (initiator is MathExprBuilder || ctx.BuiltExpressions.Count == 0)
                 {
                     return null;
                 }
 
                 var prevExpr =
                     ctx.BuiltExpressions.Last();
-                if (prevExpr.ReturnType == Constants.NUMBER_TYPE)
+                if (prevExpr.ReturnType == Constants.NumberType)
                 {
                     ctx.MoveToTheNextIndex();
 
                     var nextExpr = next();
                     ThrowIfExprIsNull(nextExpr, token);
 
-                    if (nextExpr.ReturnType == Constants.NUMBER_TYPE)
+                    if (nextExpr.ReturnType == Constants.NumberType)
                     {
                         ctx.BuiltExpressions
                             .RemoveAt(ctx.BuiltExpressions.Count - 1);

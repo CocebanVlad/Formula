@@ -39,7 +39,8 @@ namespace Xtel.PromoFormula
                     break;
                 }
 
-                throw new ParseEx(idx, $"Unexpected char at: {idx}");
+                throw new ParseEx(idx,
+                    string.Format(tr.unexpected_char_at__0, idx));
             }
 
             return tokens;

@@ -8,4 +8,19 @@
     <Folder Include="Functions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="tr.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>tr.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="tr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

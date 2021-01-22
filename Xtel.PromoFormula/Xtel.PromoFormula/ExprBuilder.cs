@@ -12,7 +12,8 @@ namespace Xtel.PromoFormula
         {
             if (expr == null)
             {
-                throw new BuildEx(token.IdxS, token.IdxE, $"Unexpected token: {token}");
+                throw new BuildEx(token.IdxS, token.IdxE, string.Format(
+                    tr.unexpected_token__0, token));
             }
         }
     }

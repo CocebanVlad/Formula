@@ -20,7 +20,7 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
         }
 
         [TestMethod]
-        public void Build_Expr_01_MustReturnExpectedEvalValue()
+        public void Build_MathExpr_MustReturnExpectedEvalValue()
         {
             EvalAssert.IsExpectedEvalResult<double>(
                 _tokenizer, _pipeline, null, "((1 + (1 + 1) * 10))", 21);
@@ -48,10 +48,13 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
 
             EvalAssert.IsExpectedEvalResult<double>(
                 _tokenizer, _pipeline, null, "-1 + -1", -2);
+
+            EvalAssert.IsExpectedEvalResult<double>(
+                _tokenizer, _pipeline, null, "-(1 + 1)", -2);
         }
 
         [TestMethod]
-        public void Build_Expr_01_MustThrowException()
+        public void Build_MathExpr_MustThrowException()
         {
             Assert.ThrowsException<BuildEx>(() =>
                 _pipeline.Build(_tokenizer.Tokenize("((1 + (1 + 1) * 10()")));
@@ -66,7 +69,73 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
                 _pipeline.Build(_tokenizer.Tokenize("((1) + (1)) + 1) * 10")));
 
             Assert.ThrowsException<BuildEx>(() =>
-                _pipeline.Build(_tokenizer.Tokenize("(1)-1)")));
+                _pipeline.Build(_tokenizer.Tokenize("(1) - 1)")));
+        }
+
+        [TestMethod]
+        public void Build_ConditionalExpr_WithBools_MustReturnExpectedEvalValue()
+        {
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "true === true", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "true !== true", false);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "true !== false", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "true !== !false", false);
+        }
+
+        [TestMethod]
+        public void Build_ConditionalExpr_WithNumbers_MustReturnExpectedEvalValue()
+        {
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "10 == 10", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "10 != 10", false);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "10 != 9", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "10 >= 10", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "10 >= 9", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "10 >= 11", false);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "10 <= 11", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "11 <= 11", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "-11 <= 11", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "20 <= 11", false);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "(10 * 2) === (9 + 9 + 2)", true);
+        }
+
+        [TestMethod]
+        public void Build_ConditionalExpr_WithStrings_MustReturnExpectedEvalValue()
+        {
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "\"hello\" === 'hello'", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "\"hello\" == 'world'", false);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, null, "\"hello\" != 'world'", true);
         }
     }
 }

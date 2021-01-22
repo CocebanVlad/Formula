@@ -127,7 +127,8 @@ namespace Xtel.PromoFormula
                 case '0': return 0;
             }
 
-            throw new Exception($"{c} not a digit");
+            throw new Exception(
+                string.Format(tr._0__not_a_digit, c));
         }
 
         public static ArithmeticOperation GetArithmeticOperation(char c)
@@ -141,7 +142,8 @@ namespace Xtel.PromoFormula
                 case '%': return ArithmeticOperation.Mod;
             }
 
-            throw new Exception($"{c} not an arithmetic symbol");
+            throw new Exception(
+                string.Format(tr._0__not_an_arithmetic_symbol, c));
         }
 
         public static int GetArithmeticOperationPriority(ArithmeticOperation op)
