@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xtel.PromoFormula.Enums;
 using Xtel.PromoFormula.Tests.Utils;
 using Xtel.PromoFormula.Tokenizers;
@@ -27,6 +24,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             var tokens = _tokenizer.Tokenize(formula).ToList();
             Assert.AreEqual(13, tokens.Count);
 
+            #region Tokens
             TokenizerAssert.AssertToken<LiteralToken>(tokens[0], (token) =>
             {
                 Assert.AreEqual("SOURCE", token.String);
@@ -79,6 +77,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             {
                 Assert.IsFalse(token.IsOpen);
             });
+            #endregion
         }
 
         [TestMethod]
@@ -89,6 +88,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             var tokens = _tokenizer.Tokenize(formula).ToList();
             Assert.AreEqual(30, tokens.Count);
 
+            #region Tokens
             TokenizerAssert.AssertToken<LiteralToken>(tokens[0], (token) =>
             {
                 Assert.AreEqual("SOURCE", token.String);
@@ -206,6 +206,7 @@ namespace Xtel.PromoFormula.Tests.Tokenizers
             {
                 Assert.IsFalse(token.IsOpen);
             });
+            #endregion
         }
     }
 }

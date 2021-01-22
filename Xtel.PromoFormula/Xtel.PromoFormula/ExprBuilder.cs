@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Interfaces;
 

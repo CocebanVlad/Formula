@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Xtel.PromoFormula.Interfaces;
 
 namespace Xtel.PromoFormula

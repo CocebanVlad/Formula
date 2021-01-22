@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xtel.PromoFormula.Enums;
+﻿using Xtel.PromoFormula.Enums;
 using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;

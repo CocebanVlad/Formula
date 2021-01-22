@@ -1,7 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xtel.PromoFormula.Parsers;
 using Xtel.PromoFormula.Tests.Utils;
 using Xtel.PromoFormula.Tokens;

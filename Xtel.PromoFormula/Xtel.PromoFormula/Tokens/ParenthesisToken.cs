@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Xtel.PromoFormula.Tokens
+﻿namespace Xtel.PromoFormula.Tokens
 {
     public class ParenthesisToken : Token
     {

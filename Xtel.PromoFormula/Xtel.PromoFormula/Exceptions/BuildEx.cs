@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Xtel.PromoFormula.Exceptions
+﻿namespace Xtel.PromoFormula.Exceptions
 {
     public class BuildEx : Ex
     {

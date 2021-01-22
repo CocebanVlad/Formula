@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Xtel.PromoFormula
+﻿namespace Xtel.PromoFormula
 {
     public static class Constants
     {
