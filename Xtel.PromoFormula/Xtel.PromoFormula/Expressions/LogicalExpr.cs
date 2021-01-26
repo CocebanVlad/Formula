@@ -5,7 +5,7 @@ using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
-    public class LogicalExpr : Expr, IHasAAndB, ICanBeNegated, IMathExprSuperior
+    public class LogicalExpr : Expr, IHasAAndB, ICanBeUsedAsBool, ICanBeNegated, IMathExprSuperior
     {
         public LogicalOperatorToken Token { get; set; }
         public IExpr A { get; set; }
@@ -14,10 +14,6 @@ namespace Xtel.PromoFormula.Expressions
         public override int IdxS => A.IdxS;
         public override int IdxE => B.IdxE;
         public override string ReturnType => Constants.BoolType;
-
-        public override object Eval(IEvalEnv env) => EvalLogicalOperator(env);
-
-        public object Negate(IEvalEnv env) => !EvalLogicalOperator(env);
 
         private bool EvalLogicalOperator(IEvalEnv env)
         {
@@ -44,6 +40,14 @@ namespace Xtel.PromoFormula.Expressions
             throw new RuntimeEx(IdxS, IdxE,
                 string.Format(tr.unknown_operator__0, Token));
         }
+
+        public object Negate(IEvalEnv env) => !EvalLogicalOperator(env);
+
+        public bool GetAsBool(IEvalEnv env) => EvalLogicalOperator(env);
+
+        public override object Eval(IEvalEnv env) => EvalLogicalOperator(env);
+
+        public override string GetAsString(IEvalEnv env) => Helpers.ToString(Eval(env));
 
         public override string ToString() => $"{A} {Token} {B}";
     }

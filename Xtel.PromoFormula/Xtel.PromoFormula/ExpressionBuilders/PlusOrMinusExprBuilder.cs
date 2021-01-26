@@ -30,10 +30,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                                 ));
                     }
 
-                    return new PlusOrMinusExpr(t.Operation == ArithmeticOperation.Add)
-                    {
-                        Expr = expr,
-                    };
+                    return new PlusOrMinusExpr() { Token = t, Expr = expr, };
                 }
             }
 

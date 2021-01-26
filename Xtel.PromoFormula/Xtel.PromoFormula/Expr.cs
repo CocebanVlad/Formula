@@ -9,5 +9,6 @@ namespace Xtel.PromoFormula
         public abstract string ReturnType { get; }
 
         public abstract object Eval(IEvalEnv env);
+        public abstract string GetAsString(IEvalEnv env);
     }
 }

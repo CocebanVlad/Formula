@@ -120,6 +120,9 @@
   <data name="a_and_b_must_be_of_a_same_type" xml:space="preserve">
     <value>A and B must be of a same type</value>
   </data>
+  <data name="cannot_transform__0__into_a_string" xml:space="preserve">
+    <value>Cannot transform '{0}' into a string</value>
+  </data>
   <data name="cant_apply__0__on__1" xml:space="preserve">
     <value>Can't apply '{0}' on {1}</value>
   </data>

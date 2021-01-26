@@ -1,4 +1,5 @@
-﻿using Xtel.PromoFormula.Tokens;
+﻿using System;
+using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
@@ -8,6 +9,11 @@ namespace Xtel.PromoFormula.Expressions
 
         public StringExpr(StringToken token)
         {
+            if (token == null)
+            {
+                throw new ArgumentNullException(nameof(token));
+            }
+
             base.Token = token;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Xtel.PromoFormula.Enums;
 using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Expressions;
 using Xtel.PromoFormula.Interfaces;
@@ -9,6 +10,13 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 {
     public class MathExprBuilder : ExprBuilder
     {
+        private readonly bool _applyStringConcatOptimization;
+
+        public MathExprBuilder(bool applyStringConcatOptimization)
+        {
+            _applyStringConcatOptimization = applyStringConcatOptimization;
+        }
+
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
             if (ctx.Token is ArithmeticSymbolToken t)
@@ -44,6 +52,21 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
                 if (nextExpr.ReturnType != Constants.NumberType)
                 {
+                    if (_applyStringConcatOptimization)
+                    {
+                        if (t.Operation == ArithmeticOperation.Add)
+                        {
+                            // `StringConcatExprBuilder` will only build an expr if A has a string return type
+                            if (nextExpr.ReturnType == Constants.StringType)
+                            {
+                                ctx.BuiltExpressions
+                                    .RemoveAt(ctx.BuiltExpressions.Count - 1);
+
+                                return new StringConcatExpr() { Token = t, A = prevExpr, B = nextExpr, };
+                            }
+                        }
+                    }
+
                     throw new BuildEx(t.IdxS, t.IdxE,
                         string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
                             t,

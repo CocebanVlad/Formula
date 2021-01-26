@@ -1,9 +1,11 @@
 ﻿using Xtel.PromoFormula.Interfaces;
+using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
     public class NegationExpr : Expr, ICanBeNegated
     {
+        public NegationToken Token { get; set; }
         public ICanBeNegated Expr { get; set; }
 
         public override int IdxS => Expr.IdxS;
@@ -14,6 +16,8 @@ namespace Xtel.PromoFormula.Expressions
 
         public override object Eval(IEvalEnv env) => Expr.Negate(env);
 
-        public override string ToString() => "!" + Expr.ToString();
+        public override string GetAsString(IEvalEnv env) => Helpers.ToString(Expr.Eval(env));
+
+        public override string ToString() => $"{Token}{Expr}";
     }
 }

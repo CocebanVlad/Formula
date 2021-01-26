@@ -8,7 +8,8 @@ namespace Xtel.PromoFormula.Tokens
 
         public string ConstValueType => Constants.BoolType;
         public object ConstValue => Value;
+        public string ConstValueAsString => Value ? Constants.BoolTrueValue : Constants.BoolFalseValue;
 
-        public override string ToString() => Value ? "true" : "false";
+        public override string ToString() => ConstValueAsString;
     }
 }

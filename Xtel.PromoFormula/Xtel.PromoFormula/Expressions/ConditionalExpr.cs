@@ -5,7 +5,7 @@ using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
-    public class ConditionalExpr : Expr, IHasAAndB, ICanBeNegated, IMathExprSuperior
+    public class ConditionalExpr : Expr, IHasAAndB, ICanBeUsedAsBool, ICanBeNegated, IMathExprSuperior
     {
         public ComparisonToken Token { get; set; }
         public IExpr A { get; set; }
@@ -14,10 +14,6 @@ namespace Xtel.PromoFormula.Expressions
         public override int IdxS => A.IdxS;
         public override int IdxE => B.IdxE;
         public override string ReturnType => Constants.BoolType;
-
-        public override object Eval(IEvalEnv env) => EvalCondition(env);
-
-        public object Negate(IEvalEnv env) => !EvalCondition(env);
 
         private bool EvalCondition(IEvalEnv env)
         {
@@ -136,6 +132,14 @@ namespace Xtel.PromoFormula.Expressions
                     Constants.StringType
                     ));
         }
+
+        public object Negate(IEvalEnv env) => !EvalCondition(env);
+
+        public bool GetAsBool(IEvalEnv env) => EvalCondition(env);
+
+        public override object Eval(IEvalEnv env) => EvalCondition(env);
+
+        public override string GetAsString(IEvalEnv env) => Helpers.ToString(EvalCondition(env));
 
         public override string ToString() => $"{A} {Token} {B}";
     }

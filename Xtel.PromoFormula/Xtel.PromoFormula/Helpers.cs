@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Xtel.PromoFormula.Enums;
 
 namespace Xtel.PromoFormula
@@ -163,6 +164,36 @@ namespace Xtel.PromoFormula
             }
 
             return -1;
+        }
+
+        public static IFormatProvider GetNumberFormatProvider() =>
+            new NumberFormatInfo() { PositiveSign = "+", NegativeSign = "-", NumberDecimalSeparator = ".", };
+
+        public static string ToString(object obj)
+        {
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            if (obj is bool b)
+            {
+                return b ? Constants.BoolTrueValue : Constants.BoolFalseValue;
+            }
+            if (obj is double d)
+            {
+                return d.ToString(GetNumberFormatProvider());
+            }
+            if (obj is string s)
+            {
+                return s;
+            }
+
+            throw new Exception(
+                string.Format(
+                    tr.cannot_transform__0__into_a_string,
+                    obj.GetType().FullName
+                    ));
         }
     }
 }

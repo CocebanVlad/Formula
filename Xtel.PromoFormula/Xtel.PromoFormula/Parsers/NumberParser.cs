@@ -97,13 +97,7 @@ namespace Xtel.PromoFormula.Parsers
 
                     var numStr =
                         number.ToString();
-                    var numInfo = new NumberFormatInfo()
-                    {
-                        PositiveSign = "+",
-                        NegativeSign = "-",
-                        NumberDecimalSeparator = ".",
-                    };
-                    if (!double.TryParse(numStr, NumberStyles.Any, numInfo, out double num))
+                    if (!double.TryParse(numStr, NumberStyles.Any, Helpers.GetNumberFormatProvider(), out double num))
                     {
                         throw new ParseEx(idxS, idxE, tr.invalid_numeric_literal);
                     }

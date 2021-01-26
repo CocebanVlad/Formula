@@ -7,5 +7,6 @@
         string ReturnType { get; }
 
         object Eval(IEvalEnv env);
+        string GetAsString(IEvalEnv env);
     }
 }

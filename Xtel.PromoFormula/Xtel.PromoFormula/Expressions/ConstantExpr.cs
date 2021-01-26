@@ -4,7 +4,7 @@ using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
-    public class ConstantExpr : Expr
+    public abstract class ConstantExpr : Expr
     {
         public IConstantToken Token { get; set; }
 
@@ -18,6 +18,8 @@ namespace Xtel.PromoFormula.Expressions
 
         public override object Eval(IEvalEnv env) => Token.ConstValue;
 
+        public override string GetAsString(IEvalEnv env) => Token.ConstValueAsString;
+
         public override string ToString() => Token.ToString();
     }
 
@@ -25,23 +27,23 @@ namespace Xtel.PromoFormula.Expressions
     {
         public static ConstantExpr Create(IConstantToken t)
         {
-            if (t is BoolToken)
+            if (t is BoolToken b)
             {
-                return new BoolExpr((BoolToken)t);
+                return new BoolExpr(b);
             }
 
-            if (t is NumberToken)
+            if (t is NumberToken n)
             {
-                return new NumberExpr((NumberToken)t);
+                return new NumberExpr(n);
             }
 
-            if (t is StringToken)
+            if (t is StringToken s)
             {
-                return new StringExpr((StringToken)t);
+                return new StringExpr(s);
             }
 
             throw new BuildEx(t.IdxS, t.IdxE,
-                string.Format(tr.unknown_constant_token__0, t.GetType()));
+                string.Format(tr.unknown_constant_token__0, t.GetType().FullName));
         }
     }
 }

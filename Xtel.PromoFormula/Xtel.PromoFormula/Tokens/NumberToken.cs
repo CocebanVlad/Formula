@@ -8,7 +8,8 @@ namespace Xtel.PromoFormula.Tokens
 
         public string ConstValueType => Constants.NumberType;
         public object ConstValue => Number;
+        public string ConstValueAsString => Number.ToString(Helpers.GetNumberFormatProvider());
 
-        public override string ToString() => Number.ToString();
+        public override string ToString() => ConstValueAsString;
     }
 }

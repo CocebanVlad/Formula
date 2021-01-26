@@ -13,7 +13,7 @@ namespace Xtel.PromoFormula.Parsers
             if (idxS < str.Length)
             {
                 #region True
-                if (Helpers.ConsumeWord(str, "true", ref idxE))
+                if (Helpers.ConsumeWord(str, Constants.BoolTrueValue, ref idxE))
                 {
                     token = new BoolToken() { IdxS = idxS, IdxE = idxE, Value = true, };
                     return true;
@@ -21,7 +21,7 @@ namespace Xtel.PromoFormula.Parsers
                 #endregion
 
                 #region False
-                if (Helpers.ConsumeWord(str, "false", ref idxE))
+                if (Helpers.ConsumeWord(str, Constants.BoolFalseValue, ref idxE))
                 {
                     token = new BoolToken() { IdxS = idxS, IdxE = idxE, Value = false, };
                     return true;

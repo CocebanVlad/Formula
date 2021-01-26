@@ -24,7 +24,7 @@ namespace Xtel.PromoFormula.Expressions
             throw new RuntimeEx(IdxS, IdxE,
                 string.Format(tr.cant_apply__0__on__1,
                     "+",
-                    InnerExpr.GetType()
+                    InnerExpr.GetType().FullName
                     ));
         }
 
@@ -38,12 +38,14 @@ namespace Xtel.PromoFormula.Expressions
             throw new RuntimeEx(IdxS, IdxE,
                 string.Format(tr.cant_apply__0__on__1,
                     "-",
-                    InnerExpr.GetType()
+                    InnerExpr.GetType().FullName
                     ));
         }
 
         public override object Eval(IEvalEnv env) => InnerExpr.Eval(env);
 
-        public override string ToString() => "(" + InnerExpr.ToString() + ")";
+        public override string GetAsString(IEvalEnv env) => Helpers.ToString(Eval(env));
+
+        public override string ToString() => $"{OpenToken}{InnerExpr}{CloseToken}";
     }
 }

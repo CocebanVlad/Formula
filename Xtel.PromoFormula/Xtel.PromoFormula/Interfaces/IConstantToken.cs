@@ -4,5 +4,6 @@
     {
         string ConstValueType { get; }
         object ConstValue { get; }
+        string ConstValueAsString { get; }
     }
 }

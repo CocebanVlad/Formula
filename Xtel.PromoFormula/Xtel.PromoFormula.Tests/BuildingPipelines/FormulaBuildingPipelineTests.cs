@@ -156,5 +156,25 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
             EvalAssert.IsExpectedEvalResult<bool>(
                 _tokenizer, _pipeline, null, "1 + 1 + 1 == 4 || 1 + 2 == 3", true);
         }
+
+        [TestMethod]
+        public void Build_StringConcatExpr_MustReturnExpectedEvalValue()
+        {
+            EvalAssert.IsExpectedEvalResult<string>(
+                _tokenizer, _pipeline, null, "'a' + 's' + 'd'", "asd");
+
+            EvalAssert.IsExpectedEvalResult<string>(
+                _tokenizer, _pipeline, null, "((6 / (2 % 4) * 10)) + ' cm'", "30 cm");
+        }
+
+        [TestMethod]
+        public void Build_StringConcatExpr_MustThrowException()
+        {
+            Assert.ThrowsException<BuildEx>(() =>
+                _pipeline.Build(_tokenizer.Tokenize("'a' + 's' * 'd'")));
+
+            Assert.ThrowsException<BuildEx>(() =>
+                _pipeline.Build(_tokenizer.Tokenize("((6 / (2 % 4) * 10)) - ' cm'")));
+        }
     }
 }

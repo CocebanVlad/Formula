@@ -28,10 +28,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                                 ));
                     }
 
-                    return new NegationExpr()
-                    {
-                        Expr = expr,
-                    };
+                    return new NegationExpr() { Token = t, Expr = expr, };
                 }
             }
 

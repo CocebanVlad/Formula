@@ -9,6 +9,7 @@ namespace Xtel.PromoFormula.Tokens
 
         public string ConstValueType => Constants.StringType;
         public object ConstValue => String;
+        public string ConstValueAsString => String;
 
         public override string ToString() => NotationChar + String + NotationChar;
     }

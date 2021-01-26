@@ -97,6 +97,15 @@ namespace Xtel.PromoFormula {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot transform &apos;{0}&apos; into a string.
+        /// </summary>
+        internal static string cannot_transform__0__into_a_string {
+            get {
+                return ResourceManager.GetString("cannot_transform__0__into_a_string", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t apply &apos;{0}&apos; on {1}.
         /// </summary>
         internal static string cant_apply__0__on__1 {
