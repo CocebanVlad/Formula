@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Xtel.PromoFormula.Enums;
+using Xtel.PromoFormula.Interfaces;
 
 namespace Xtel.PromoFormula
 {
@@ -178,15 +181,19 @@ namespace Xtel.PromoFormula
 
             if (obj is bool b)
             {
-                return b ? Constants.BoolTrueValue : Constants.BoolFalseValue;
+                return b ? "true" : "false";
             }
-            if (obj is double d)
+            if (obj is double num)
             {
-                return d.ToString(GetNumberFormatProvider());
+                return num.ToString(GetNumberFormatProvider());
             }
-            if (obj is string s)
+            if (obj is string str)
             {
-                return s;
+                return str;
+            }
+            if (obj is Array arr)
+            {
+                return string.Join(",", arr);
             }
 
             throw new Exception(
@@ -194,6 +201,63 @@ namespace Xtel.PromoFormula
                     tr.cannot_transform__0__into_a_string,
                     obj.GetType().FullName
                     ));
+        }
+
+        public static bool ArgsMatchFuncSignature(IList<IExpr> args, IList<Enums.Type> signature)
+        {
+            if (args.Count != signature.Count)
+            {
+                return false;
+            }
+
+            for (var idx = 0; idx < args.Count; idx++)
+            {
+                if (signature[idx] == Enums.Type.Any)
+                {
+                    continue;
+                }
+
+                if (args[idx].ReturnType != signature[idx])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static Enums.Type GetArrayType(IList<IExpr> elements)
+        {
+            var types = elements.Select(el => el.ReturnType).Distinct();
+            if (types.Count() == 1)
+            {
+                switch (types.First())
+                {
+                    case Enums.Type.Bool:
+                        return Enums.Type.BoolArray;
+                    case Enums.Type.Number:
+                        return Enums.Type.NumberArray;
+                    case Enums.Type.String:
+                        return Enums.Type.StringArray;
+                }
+            }
+
+            return Enums.Type.Array;
+        }
+
+        public static object ToArray(IEnumerable<object> elements, Enums.Type type)
+        {
+            switch (type)
+            {
+                case Enums.Type.BoolArray:
+                    return elements.Cast<bool>().ToArray();
+                case Enums.Type.NumberArray:
+                    return elements.Cast<double>().ToArray();
+                case Enums.Type.StringArray:
+                    return elements.Cast<string>().ToArray();
+            }
+
+            return elements;
         }
     }
 }

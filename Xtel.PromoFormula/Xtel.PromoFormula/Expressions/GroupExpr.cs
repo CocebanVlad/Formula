@@ -12,13 +12,18 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => OpenToken.IdxS;
         public override int IdxE => CloseToken.IdxE;
-        public override string ReturnType => InnerExpr.ReturnType;
+        public override Enums.Type ReturnType => InnerExpr.ReturnType;
 
-        public object ApplyPlus(IEvalEnv env)
+        public GroupExpr(IEnv env)
+            : base(env)
+        {
+        }
+
+        public object ApplyPlus()
         {
             if (InnerExpr is ICanBePrefixedWithPlusOrMinus expr)
             {
-                return expr.ApplyPlus(env);
+                return expr.ApplyPlus();
             }
 
             throw new RuntimeEx(IdxS, IdxE,
@@ -28,11 +33,11 @@ namespace Xtel.PromoFormula.Expressions
                     ));
         }
 
-        public object ApplyMinus(IEvalEnv env)
+        public object ApplyMinus()
         {
             if (InnerExpr is ICanBePrefixedWithPlusOrMinus expr)
             {
-                return expr.ApplyMinus(env);
+                return expr.ApplyMinus();
             }
 
             throw new RuntimeEx(IdxS, IdxE,
@@ -42,9 +47,9 @@ namespace Xtel.PromoFormula.Expressions
                     ));
         }
 
-        public override object Eval(IEvalEnv env) => InnerExpr.Eval(env);
+        public override object Eval() => InnerExpr.Eval();
 
-        public override string GetAsString(IEvalEnv env) => Helpers.ToString(Eval(env));
+        public override string GetAsString() => Helpers.ToString(Eval());
 
         public override string ToString() => $"{OpenToken}{InnerExpr}{CloseToken}";
     }

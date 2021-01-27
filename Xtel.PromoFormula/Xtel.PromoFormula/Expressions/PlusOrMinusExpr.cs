@@ -13,15 +13,20 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => Expr.IdxS;
         public override int IdxE => Expr.IdxE;
-        public override string ReturnType => Expr.ReturnType;
+        public override Enums.Type ReturnType => Expr.ReturnType;
 
-        public object ApplyPlus(IEvalEnv env) => IsPlus ? Expr.Eval(env) : Expr.ApplyPlus(env);
+        public PlusOrMinusExpr(IEnv env)
+            : base(env)
+        {
+        }
 
-        public object ApplyMinus(IEvalEnv env) => Expr.ApplyMinus(env);
+        public object ApplyPlus() => IsPlus ? Expr.Eval() : Expr.ApplyPlus();
 
-        public override object Eval(IEvalEnv env) => IsPlus ? ApplyPlus(env) : ApplyMinus(env);
+        public object ApplyMinus() => Expr.ApplyMinus();
 
-        public override string GetAsString(IEvalEnv env) => Helpers.ToString(Eval(env));
+        public override object Eval() => IsPlus ? ApplyPlus() : ApplyMinus();
+
+        public override string GetAsString() => Helpers.ToString(Eval());
 
         public override string ToString() => $"{Token}{Expr}";
     }

@@ -8,7 +8,8 @@ namespace Xtel.PromoFormula.Expressions
     {
         public new NumberToken Token => (NumberToken)base.Token;
 
-        public NumberExpr(NumberToken token)
+        public NumberExpr(NumberToken token, IEnv env)
+            : base(env)
         {
             if (token == null)
             {
@@ -18,10 +19,10 @@ namespace Xtel.PromoFormula.Expressions
             base.Token = token;
         }
 
-        public double GetAsNumber(IEvalEnv env) => (double)Eval(env);
+        public double GetAsNumber() => (double)Eval();
 
-        public object ApplyPlus(IEvalEnv env) => +(double)Eval(env);
+        public object ApplyPlus() => +(double)Eval();
 
-        public object ApplyMinus(IEvalEnv env) => -(double)Eval(env);
+        public object ApplyMinus() => -(double)Eval();
     }
 }

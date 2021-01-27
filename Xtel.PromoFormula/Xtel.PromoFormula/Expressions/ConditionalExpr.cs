@@ -13,9 +13,14 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => A.IdxS;
         public override int IdxE => B.IdxE;
-        public override string ReturnType => Constants.BoolType;
+        public override Enums.Type ReturnType => Enums.Type.Bool;
 
-        private bool EvalCondition(IEvalEnv env)
+        public ConditionalExpr(IEnv env)
+            : base(env)
+        {
+        }
+
+        private bool EvalCondition()
         {
             if (A.ReturnType != B.ReturnType)
             {
@@ -24,12 +29,12 @@ namespace Xtel.PromoFormula.Expressions
 
             switch (A.ReturnType)
             {
-                case Constants.BoolType:
-                    return PerformComparisonAsForBools(env);
-                case Constants.NumberType:
-                    return PerformComparisonAsForNumbers(env);
-                case Constants.StringType:
-                    return PerformComparisonAsForStrings(env);
+                case Enums.Type.Bool:
+                    return PerformComparisonAsForBools();
+                case Enums.Type.Number:
+                    return PerformComparisonAsForNumbers();
+                case Enums.Type.String:
+                    return PerformComparisonAsForStrings();
             }
 
             throw new RuntimeEx(IdxS, IdxE,
@@ -38,18 +43,18 @@ namespace Xtel.PromoFormula.Expressions
                     ));
         }
 
-        private bool PerformComparisonAsForBools(IEvalEnv env)
+        private bool PerformComparisonAsForBools()
         {
-            if (!(A.Eval(env) is bool a))
+            if (!(A.Eval() is bool a))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "A", Constants.BoolType));
+                    string.Format(tr._0__is_not__1__type, "A", Enums.Type.Bool));
             }
 
-            if (!(B.Eval(env) is bool b))
+            if (!(B.Eval() is bool b))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "B", Constants.BoolType));
+                    string.Format(tr._0__is_not__1__type, "B", Enums.Type.Bool));
             }
 
             switch (Token.Operator)
@@ -63,22 +68,22 @@ namespace Xtel.PromoFormula.Expressions
             throw new RuntimeEx(IdxS, IdxE,
                 string.Format(tr.cant_apply__0__on__1,
                     Token,
-                    Constants.BoolType
+                    Enums.Type.Bool
                     ));
         }
 
-        private bool PerformComparisonAsForNumbers(IEvalEnv env)
+        private bool PerformComparisonAsForNumbers()
         {
-            if (!(A.Eval(env) is double a))
+            if (!(A.Eval() is double a))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "A", Constants.NumberType));
+                    string.Format(tr._0__is_not__1__type, "A", Enums.Type.Number));
             }
 
-            if (!(B.Eval(env) is double b))
+            if (!(B.Eval() is double b))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "B", Constants.NumberType));
+                    string.Format(tr._0__is_not__1__type, "B", Enums.Type.Number));
             }
 
             switch (Token.Operator)
@@ -100,22 +105,22 @@ namespace Xtel.PromoFormula.Expressions
             throw new RuntimeEx(IdxS, IdxE,
                 string.Format(tr.cant_apply__0__on__1,
                     Token,
-                    Constants.NumberType
+                    Enums.Type.Number
                     ));
         }
 
-        private bool PerformComparisonAsForStrings(IEvalEnv env)
+        private bool PerformComparisonAsForStrings()
         {
-            if (!(A.Eval(env) is string a))
+            if (!(A.Eval() is string a))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "A", Constants.StringType));
+                    string.Format(tr._0__is_not__1__type, "A", Enums.Type.String));
             }
 
-            if (!(B.Eval(env) is string b))
+            if (!(B.Eval() is string b))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "B", Constants.StringType));
+                    string.Format(tr._0__is_not__1__type, "B", Enums.Type.String));
             }
 
             switch (Token.Operator)
@@ -129,17 +134,17 @@ namespace Xtel.PromoFormula.Expressions
             throw new RuntimeEx(IdxS, IdxE,
                 string.Format(tr.cant_apply__0__on__1,
                     Token,
-                    Constants.StringType
+                    Enums.Type.String
                     ));
         }
 
-        public object Negate(IEvalEnv env) => !EvalCondition(env);
+        public object Negate() => !EvalCondition();
 
-        public bool GetAsBool(IEvalEnv env) => EvalCondition(env);
+        public bool GetAsBool() => EvalCondition();
 
-        public override object Eval(IEvalEnv env) => EvalCondition(env);
+        public override object Eval() => EvalCondition();
 
-        public override string GetAsString(IEvalEnv env) => Helpers.ToString(EvalCondition(env));
+        public override string GetAsString() => Helpers.ToString(EvalCondition());
 
         public override string ToString() => $"{A} {Token} {B}";
     }

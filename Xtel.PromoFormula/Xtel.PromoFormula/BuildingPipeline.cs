@@ -8,11 +8,18 @@ namespace Xtel.PromoFormula
     {
         protected abstract IList<IExprBuilder> Builders { get; }
 
-        protected virtual IExpr Cycle(BuildContext context, IExprBuilder initiator = null)
+        protected IEnv Env { get; }
+
+        public BuildingPipeline(IEnv env)
+        {
+            Env = env;
+        }
+
+        protected virtual IExpr Cycle(BuildContext ctx, IExprBuilder initiator = null)
         {
             for (var idx = 0; idx < Builders.Count; idx++)
             {
-                var expr = Builders[idx].Build(context, initiator, () => Cycle(context, Builders[idx]));
+                var expr = Builders[idx].Build(ctx, initiator, () => Cycle(ctx, Builders[idx]));
                 if (expr != null)
                 {
                     return expr;
@@ -24,22 +31,18 @@ namespace Xtel.PromoFormula
 
         public virtual IList<IExpr> Build(IList<IToken> tokens)
         {
-            var ctx = new BuildContext()
-            {
-                Tokens = tokens,
-                BuiltExpressions = new List<IExpr>(),
-            };
+            var ctx = new BuildContext(tokens);
 
-            while (ctx.HasToken())
+            while (ctx.HasToken)
             {
                 var expr = Cycle(ctx);
                 if (expr != null)
                 {
-                    ctx.BuiltExpressions.Add(expr);
+                    ctx.PushExpr(expr);
                     continue;
                 }
 
-                if (ctx.Index >= ctx.Tokens.Count)
+                if (ctx.Idx >= ctx.Tokens.Count)
                 {
                     break;
                 }
@@ -48,7 +51,7 @@ namespace Xtel.PromoFormula
                     tr.unexpected_token__0, ctx.Token));
             }
 
-            return ctx.BuiltExpressions;
+            return ctx.BuiltExprs;
         }
     }
 }

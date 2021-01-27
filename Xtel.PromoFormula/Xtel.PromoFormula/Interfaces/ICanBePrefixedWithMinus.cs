@@ -2,6 +2,6 @@
 {
     public interface ICanBePrefixedWithMinus : IExpr
     {
-        object ApplyMinus(IEvalEnv env);
+        object ApplyMinus();
     }
 }

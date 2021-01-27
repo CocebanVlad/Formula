@@ -7,18 +7,23 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 {
     public class GroupExprBuilder : ExprBuilder
     {
+        public GroupExprBuilder(IEnv env)
+            : base(env)
+        {
+        }
+
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
             if (ctx.Token is ParenthesisToken openT && openT.IsOpen)
             {
-                ctx.MoveToTheNextIndex();
+                ctx.NextIndex();
 
                 IExpr innerExpr;
                 ParenthesisToken closeT;
                 while (true)
                 {
                     innerExpr = next();
-                    ThrowIfExprIsNull(innerExpr, openT);
+                    ThrowIfExprIsNull(innerExpr, ctx.Token);
 
                     if (ctx.Token is ParenthesisToken token && !token.IsOpen)
                     {
@@ -26,11 +31,12 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                         break;
                     }
 
-                    ctx.BuiltExpressions.Add(innerExpr);
+                    ctx.PushExpr(innerExpr);
                 }
 
-                ctx.MoveToTheNextIndex();
-                return new GroupExpr() { OpenToken = openT, CloseToken = closeT, InnerExpr = innerExpr, };
+                ctx.NextIndex();
+
+                return new GroupExpr(Env) { OpenToken = openT, CloseToken = closeT, InnerExpr = innerExpr, };
             }
 
             return null;

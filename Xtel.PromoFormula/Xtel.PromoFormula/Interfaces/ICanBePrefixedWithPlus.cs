@@ -2,6 +2,6 @@
 {
     public interface ICanBePrefixedWithPlus : IExpr
     {
-        object ApplyPlus(IEvalEnv env);
+        object ApplyPlus();
     }
 }

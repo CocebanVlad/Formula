@@ -6,9 +6,9 @@ namespace Xtel.PromoFormula.Tokens
     {
         public bool Value { get; set; }
 
-        public string ConstValueType => Constants.BoolType;
+        public Enums.Type ConstValueType => Enums.Type.Bool;
         public object ConstValue => Value;
-        public string ConstValueAsString => Value ? Constants.BoolTrueValue : Constants.BoolFalseValue;
+        public string ConstValueAsString => Value ? "true" : "false";
 
         public override string ToString() => ConstValueAsString;
     }

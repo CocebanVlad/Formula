@@ -6,7 +6,7 @@ namespace Xtel.PromoFormula.Tokens
     {
         public double Number { get; set; }
 
-        public string ConstValueType => Constants.NumberType;
+        public Enums.Type ConstValueType => Enums.Type.Number;
         public object ConstValue => Number;
         public string ConstValueAsString => Number.ToString(Helpers.GetNumberFormatProvider());
 

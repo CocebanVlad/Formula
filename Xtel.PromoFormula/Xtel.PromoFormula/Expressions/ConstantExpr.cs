@@ -10,40 +10,41 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => Token.IdxS;
         public override int IdxE => Token.IdxE;
-        public override string ReturnType => Token.ConstValueType;
+        public override Enums.Type ReturnType => Token.ConstValueType;
 
-        protected ConstantExpr()
+        protected ConstantExpr(IEnv env)
+            : base(env)
         {
         }
 
-        public override object Eval(IEvalEnv env) => Token.ConstValue;
+        public override object Eval() => Token.ConstValue;
 
-        public override string GetAsString(IEvalEnv env) => Token.ConstValueAsString;
+        public override string GetAsString() => Token.ConstValueAsString;
 
         public override string ToString() => Token.ToString();
     }
 
     public static class ConstantExprFactory
     {
-        public static ConstantExpr Create(IConstantToken t)
+        public static ConstantExpr Create(IConstantToken token, IEnv env)
         {
-            if (t is BoolToken b)
+            if (token is BoolToken b)
             {
-                return new BoolExpr(b);
+                return new BoolExpr(b, env);
             }
 
-            if (t is NumberToken n)
+            if (token is NumberToken num)
             {
-                return new NumberExpr(n);
+                return new NumberExpr(num, env);
             }
 
-            if (t is StringToken s)
+            if (token is StringToken str)
             {
-                return new StringExpr(s);
+                return new StringExpr(str, env);
             }
 
-            throw new BuildEx(t.IdxS, t.IdxE,
-                string.Format(tr.unknown_constant_token__0, t.GetType().FullName));
+            throw new BuildEx(token.IdxS, token.IdxE,
+                string.Format(tr.unknown_constant_token__0, token.GetType().FullName));
         }
     }
 }

@@ -13,20 +13,25 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => A.IdxS;
         public override int IdxE => B.IdxE;
-        public override string ReturnType => Constants.NumberType;
+        public override Enums.Type ReturnType => Enums.Type.Number;
 
-        private double ExecuteOperation(IEvalEnv env)
+        public MathExpr(IEnv env)
+            : base(env)
         {
-            if (!(A.Eval(env) is double a))
+        }
+
+        private double ExecOp()
+        {
+            if (!(A.Eval() is double a))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "A", Constants.NumberType));
+                    string.Format(tr._0__is_not__1__type, "A", Enums.Type.Number));
             }
 
-            if (!(B.Eval(env) is double b))
+            if (!(B.Eval() is double b))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "A", Constants.NumberType));
+                    string.Format(tr._0__is_not__1__type, "A", Enums.Type.Number));
             }
 
             switch (Token.Operation)
@@ -47,15 +52,15 @@ namespace Xtel.PromoFormula.Expressions
                 string.Format(tr.unknown_operation__0, Token));
         }
 
-        public double GetAsNumber(IEvalEnv env) => ExecuteOperation(env);
+        public double GetAsNumber() => ExecOp();
 
-        public object ApplyPlus(IEvalEnv env) => +ExecuteOperation(env);
+        public object ApplyPlus() => +ExecOp();
 
-        public object ApplyMinus(IEvalEnv env) => -ExecuteOperation(env);
+        public object ApplyMinus() => -ExecOp();
 
-        public override object Eval(IEvalEnv env) => ExecuteOperation(env);
+        public override object Eval() => ExecOp();
 
-        public override string GetAsString(IEvalEnv env) => Helpers.ToString(Eval(env));
+        public override string GetAsString() => Helpers.ToString(Eval());
 
         public override string ToString() => $"{A} {Token} {B}";
     }

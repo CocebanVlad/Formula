@@ -138,6 +138,12 @@
   <data name="operator__0__cannot_be_applied_to_operands_of_type__1__and__2" xml:space="preserve">
     <value>Operator '{0}' cannot be applied to operands of type '{1}' and '{2}'</value>
   </data>
+  <data name="the_arguments_provided_do_not_match_the_signature__expected__0__provided__1" xml:space="preserve">
+    <value>The arguments provided do not match the signature. Expected: {0}. Provided: {1}.</value>
+  </data>
+  <data name="the_name__0__does_not_exist_in_the_current_environment" xml:space="preserve">
+    <value>The name '' does not exist in the current environment</value>
+  </data>
   <data name="unexpected_char_at__0" xml:space="preserve">
     <value>Unexpected char at: {0}</value>
   </data>

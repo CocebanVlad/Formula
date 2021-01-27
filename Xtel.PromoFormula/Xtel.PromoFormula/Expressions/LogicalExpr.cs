@@ -13,20 +13,25 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => A.IdxS;
         public override int IdxE => B.IdxE;
-        public override string ReturnType => Constants.BoolType;
+        public override Enums.Type ReturnType => Enums.Type.Bool;
 
-        private bool EvalLogicalOperator(IEvalEnv env)
+        public LogicalExpr(IEnv env)
+            : base(env)
         {
-            if (!(A.Eval(env) is bool a))
+        }
+
+        private bool EvalLogic()
+        {
+            if (!(A.Eval() is bool a))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "A", Constants.BoolType));
+                    string.Format(tr._0__is_not__1__type, "A", Enums.Type.Bool));
             }
 
-            if (!(B.Eval(env) is bool b))
+            if (!(B.Eval() is bool b))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
-                    string.Format(tr._0__is_not__1__type, "A", Constants.BoolType));
+                    string.Format(tr._0__is_not__1__type, "A", Enums.Type.Bool));
             }
 
             switch (Token.Operator)
@@ -41,13 +46,13 @@ namespace Xtel.PromoFormula.Expressions
                 string.Format(tr.unknown_operator__0, Token));
         }
 
-        public object Negate(IEvalEnv env) => !EvalLogicalOperator(env);
+        public object Negate() => !EvalLogic();
 
-        public bool GetAsBool(IEvalEnv env) => EvalLogicalOperator(env);
+        public bool GetAsBool() => EvalLogic();
 
-        public override object Eval(IEvalEnv env) => EvalLogicalOperator(env);
+        public override object Eval() => EvalLogic();
 
-        public override string GetAsString(IEvalEnv env) => Helpers.ToString(Eval(env));
+        public override string GetAsString() => Helpers.ToString(Eval());
 
         public override string ToString() => $"{A} {Token} {B}";
     }

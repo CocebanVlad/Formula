@@ -2,6 +2,6 @@
 {
     public interface ICanBeUsedAsNumber : IExpr
     {
-        double GetAsNumber(IEvalEnv env);
+        double GetAsNumber();
     }
 }

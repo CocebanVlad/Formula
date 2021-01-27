@@ -2,6 +2,6 @@
 {
     public interface ICanBeNegated : IExpr
     {
-        object Negate(IEvalEnv env);
+        object Negate();
     }
 }

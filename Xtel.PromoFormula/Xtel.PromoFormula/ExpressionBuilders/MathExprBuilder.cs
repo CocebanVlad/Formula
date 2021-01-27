@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Xtel.PromoFormula.Enums;
 using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Expressions;
@@ -12,7 +11,8 @@ namespace Xtel.PromoFormula.ExpressionBuilders
     {
         private readonly bool _applyStringConcatOptimization;
 
-        public MathExprBuilder(bool applyStringConcatOptimization)
+        public MathExprBuilder(bool applyStringConcatOptimization, IEnv env)
+            : base(env)
         {
             _applyStringConcatOptimization = applyStringConcatOptimization;
         }
@@ -21,13 +21,12 @@ namespace Xtel.PromoFormula.ExpressionBuilders
         {
             if (ctx.Token is ArithmeticSymbolToken t)
             {
-                if (initiator is MathExprBuilder || ctx.BuiltExpressions.Count == 0)
+                if (initiator is MathExprBuilder || ctx.BuiltExprs.Count == 0)
                 {
                     return null;
                 }
 
-                var prevExpr =
-                    ctx.BuiltExpressions.Last();
+                var prevExpr = ctx.LastExpr;
 
                 IMathExprSuperior superior = null;
                 if (prevExpr is IMathExprSuperior)
@@ -36,7 +35,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                     prevExpr = superior.B;
                 }
 
-                if (prevExpr.ReturnType != Constants.NumberType)
+                if (prevExpr.ReturnType != Enums.Type.Number)
                 {
                     throw new BuildEx(t.IdxS, t.IdxE,
                         string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
@@ -45,24 +44,23 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                             ));
                 }
 
-                ctx.MoveToTheNextIndex();
+                ctx.NextIndex();
 
                 var nextExpr = next();
                 ThrowIfExprIsNull(nextExpr, t);
 
-                if (nextExpr.ReturnType != Constants.NumberType)
+                if (nextExpr.ReturnType != Enums.Type.Number)
                 {
                     if (_applyStringConcatOptimization)
                     {
                         if (t.Operation == ArithmeticOperation.Add)
                         {
                             // `StringConcatExprBuilder` will only build an expr if A has a string return type
-                            if (nextExpr.ReturnType == Constants.StringType)
+                            if (nextExpr.ReturnType == Enums.Type.String)
                             {
-                                ctx.BuiltExpressions
-                                    .RemoveAt(ctx.BuiltExpressions.Count - 1);
+                                ctx.PopExpr();
 
-                                return new StringConcatExpr() { Token = t, A = prevExpr, B = nextExpr, };
+                                return new StringConcatExpr(Env) { Token = t, A = prevExpr, B = nextExpr, };
                             }
                         }
                     }
@@ -74,10 +72,9 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                             ));
                 }
 
-                ctx.BuiltExpressions
-                    .RemoveAt(ctx.BuiltExpressions.Count - 1);
+                ctx.PopExpr();
 
-                var mathExpr = new MathExpr() { Token = t, A = prevExpr, B = nextExpr };
+                var mathExpr = new MathExpr(Env) { Token = t, A = prevExpr, B = nextExpr };
 
                 if (prevExpr is MathExpr prevMathExpr &&
                         Helpers.GetArithmeticOperationPriority(t.Operation) >

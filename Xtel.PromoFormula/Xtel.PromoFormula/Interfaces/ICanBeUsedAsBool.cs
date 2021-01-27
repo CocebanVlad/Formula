@@ -2,6 +2,6 @@
 {
     public interface ICanBeUsedAsBool : IExpr
     {
-        bool GetAsBool(IEvalEnv env);
+        bool GetAsBool();
     }
 }

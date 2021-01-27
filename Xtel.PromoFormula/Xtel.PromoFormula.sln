@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xtel.PromoFormula.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xtel.PromoFormula.NetFramework.Tests", "Xtel.PromoFormula.NetFramework.Tests\Xtel.PromoFormula.NetFramework.Tests.csproj", "{05988A50-DE23-4DFB-B1FE-AFEEC17B938E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xtel.PromoFormula.Functions", "Xtel.PromoFormula.Functions\Xtel.PromoFormula.Functions.csproj", "{E4D5CCB1-CCDD-4A5E-B5B8-5433FCAB5E0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{05988A50-DE23-4DFB-B1FE-AFEEC17B938E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05988A50-DE23-4DFB-B1FE-AFEEC17B938E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05988A50-DE23-4DFB-B1FE-AFEEC17B938E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4D5CCB1-CCDD-4A5E-B5B8-5433FCAB5E0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4D5CCB1-CCDD-4A5E-B5B8-5433FCAB5E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4D5CCB1-CCDD-4A5E-B5B8-5433FCAB5E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4D5CCB1-CCDD-4A5E-B5B8-5433FCAB5E0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

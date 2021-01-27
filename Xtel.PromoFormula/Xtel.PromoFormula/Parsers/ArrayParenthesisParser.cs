@@ -3,7 +3,7 @@ using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Parsers
 {
-    public class BoolParser : Parser
+    public class ArrayParenthesisParser : Parser
     {
         public override bool TryParse(in string str, int idxS, out int idxE, out IToken token)
         {
@@ -12,21 +12,19 @@ namespace Xtel.PromoFormula.Parsers
 
             if (idxS < str.Length)
             {
-                #region True
-                if (Helpers.ConsumeWord(str, "true", ref idxE))
+                if (str[idxS] == '[')
                 {
-                    token = new BoolToken() { IdxS = idxS, IdxE = idxE, Value = true, };
+                    idxE++;
+                    token = new ArrayParenthesisToken() { IdxS = idxS, IdxE = idxE, IsOpen = true, };
                     return true;
                 }
-                #endregion
 
-                #region False
-                if (Helpers.ConsumeWord(str, "false", ref idxE))
+                if (str[idxS] == ']')
                 {
-                    token = new BoolToken() { IdxS = idxS, IdxE = idxE, Value = false, };
+                    idxE++;
+                    token = new ArrayParenthesisToken() { IdxS = idxS, IdxE = idxE, IsOpen = false, };
                     return true;
                 }
-                #endregion
             }
 
             return false;

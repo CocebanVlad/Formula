@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Functions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="tr.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

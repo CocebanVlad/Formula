@@ -11,13 +11,18 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => A.IdxS;
         public override int IdxE => B.IdxE;
-        public override string ReturnType => Constants.StringType;
+        public override Enums.Type ReturnType => Enums.Type.String;
 
-        private string Concat(IEvalEnv env) => A.GetAsString(env) + B.GetAsString(env);
+        public StringConcatExpr(IEnv env)
+            : base(env)
+        {
+        }
 
-        public override object Eval(IEvalEnv env) => Concat(env);
+        private string Concat() => A.GetAsString() + B.GetAsString();
 
-        public override string GetAsString(IEvalEnv env) => Concat(env);
+        public override object Eval() => Concat();
+
+        public override string GetAsString() => Concat();
 
         public override string ToString() => $"{A} {Token} {B}";
     }

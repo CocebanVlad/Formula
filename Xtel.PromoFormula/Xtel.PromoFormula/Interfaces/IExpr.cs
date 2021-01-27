@@ -4,9 +4,9 @@
     {
         int IdxS { get; }
         int IdxE { get; }
-        string ReturnType { get; }
+        Enums.Type ReturnType { get; }
 
-        object Eval(IEvalEnv env);
-        string GetAsString(IEvalEnv env);
+        object Eval();
+        string GetAsString();
     }
 }

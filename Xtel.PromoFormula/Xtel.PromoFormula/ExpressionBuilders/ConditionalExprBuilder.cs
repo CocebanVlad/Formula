@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Expressions;
 using Xtel.PromoFormula.Interfaces;
@@ -9,19 +8,23 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 {
     public class ConditionalExprBuilder : ExprBuilder
     {
+        public ConditionalExprBuilder(IEnv env)
+            : base(env)
+        {
+        }
+
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
             if (ctx.Token is ComparisonToken t)
             {
-                if (initiator is ConditionalExprBuilder || ctx.BuiltExpressions.Count == 0)
+                if (initiator is ConditionalExprBuilder || ctx.BuiltExprs.Count == 0)
                 {
                     return null;
                 }
 
-                var prevExpr =
-                    ctx.BuiltExpressions.Last();
+                var prevExpr = ctx.LastExpr;
 
-                ctx.MoveToTheNextIndex();
+                ctx.NextIndex();
 
                 var nextExpr = next();
                 ThrowIfExprIsNull(nextExpr, t);
@@ -36,10 +39,9 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                             ));
                 }
 
-                ctx.BuiltExpressions
-                    .RemoveAt(ctx.BuiltExpressions.Count - 1);
+                ctx.PopExpr();
 
-                return new ConditionalExpr() { Token = t, A = prevExpr, B = nextExpr, };
+                return new ConditionalExpr(Env) { Token = t, A = prevExpr, B = nextExpr, };
             }
 
             return null;

@@ -10,13 +10,18 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => Expr.IdxS;
         public override int IdxE => Expr.IdxE;
-        public override string ReturnType => Expr.ReturnType;
+        public override Enums.Type ReturnType => Expr.ReturnType;
 
-        public object Negate(IEvalEnv env) => Expr.Eval(env);
+        public NegationExpr(IEnv env)
+            : base(env)
+        {
+        }
 
-        public override object Eval(IEvalEnv env) => Expr.Negate(env);
+        public object Negate() => Expr.Eval();
 
-        public override string GetAsString(IEvalEnv env) => Helpers.ToString(Expr.Eval(env));
+        public override object Eval() => Expr.Negate();
+
+        public override string GetAsString() => Helpers.ToString(Expr.Eval());
 
         public override string ToString() => $"{Token}{Expr}";
     }

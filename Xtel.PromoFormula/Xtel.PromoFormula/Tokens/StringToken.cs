@@ -7,7 +7,7 @@ namespace Xtel.PromoFormula.Tokens
         public string String { get; set; }
         public char NotationChar { get; set; }
 
-        public string ConstValueType => Constants.StringType;
+        public Enums.Type ConstValueType => Enums.Type.String;
         public object ConstValue => String;
         public string ConstValueAsString => String;
 

@@ -8,7 +8,8 @@ namespace Xtel.PromoFormula.Expressions
     {
         public new BoolToken Token => (BoolToken)base.Token;
 
-        public BoolExpr(BoolToken token)
+        public BoolExpr(BoolToken token, IEnv env)
+            : base(env)
         {
             if (token == null)
             {
@@ -18,8 +19,8 @@ namespace Xtel.PromoFormula.Expressions
             base.Token = token;
         }
 
-        public bool GetAsBool(IEvalEnv env) => (bool)base.Eval(env);
+        public bool GetAsBool() => (bool)base.Eval();
 
-        public object Negate(IEvalEnv env) => !(bool)base.Eval(env);
+        public object Negate() => !(bool)base.Eval();
     }
 }

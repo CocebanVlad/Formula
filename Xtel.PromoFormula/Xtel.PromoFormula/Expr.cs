@@ -6,9 +6,16 @@ namespace Xtel.PromoFormula
     {
         public abstract int IdxS { get; }
         public abstract int IdxE { get; }
-        public abstract string ReturnType { get; }
+        public abstract Enums.Type ReturnType { get; }
 
-        public abstract object Eval(IEvalEnv env);
-        public abstract string GetAsString(IEvalEnv env);
+        protected IEnv Env { get; }
+
+        public Expr(IEnv env)
+        {
+            Env = env;
+        }
+
+        public abstract object Eval();
+        public abstract string GetAsString();
     }
 }

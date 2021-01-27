@@ -2,7 +2,7 @@
 {
     public interface IConstantToken : IToken
     {
-        string ConstValueType { get; }
+        Enums.Type ConstValueType { get; }
         object ConstValue { get; }
         string ConstValueAsString { get; }
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Xtel.PromoFormula.Expressions;
 using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;
@@ -10,7 +9,8 @@ namespace Xtel.PromoFormula.ExpressionBuilders
     {
         private readonly bool _applyOptimization;
 
-        public StringConcatExprBuilder(bool applyOptimization)
+        public StringConcatExprBuilder(bool applyOptimization, IEnv env)
+            : base(env)
         {
             _applyOptimization = applyOptimization; // `MathExprBuilder` should return a `StringConcatExpr` whenever B is of a `string` type
         }
@@ -19,24 +19,22 @@ namespace Xtel.PromoFormula.ExpressionBuilders
         {
             if (ctx.Token is ArithmeticSymbolToken t && t.Operation == Enums.ArithmeticOperation.Add)
             {
-                if (initiator is StringConcatExprBuilder || ctx.BuiltExpressions.Count == 0)
+                if (initiator is StringConcatExprBuilder || ctx.BuiltExprs.Count == 0)
                 {
                     return null;
                 }
 
-                var prevExpr =
-                    ctx.BuiltExpressions.Last();
-                if (prevExpr.ReturnType == Constants.StringType)
+                var prevExpr = ctx.LastExpr;
+                if (prevExpr.ReturnType == Enums.Type.String)
                 {
-                    ctx.MoveToTheNextIndex();
+                    ctx.NextIndex();
 
                     var nextExpr = next();
                     ThrowIfExprIsNull(nextExpr, t);
 
-                    ctx.BuiltExpressions
-                        .RemoveAt(ctx.BuiltExpressions.Count - 1);
+                    ctx.PopExpr();
 
-                    return new StringConcatExpr() { Token = t, A = prevExpr, B = nextExpr, };
+                    return new StringConcatExpr(Env) { Token = t, A = prevExpr, B = nextExpr, };
                 }
                 else
                 {
@@ -44,17 +42,16 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                     {
                         var ctxCopy = ctx.CreateCopy();
 
-                        ctx.MoveToTheNextIndex();
+                        ctx.NextIndex();
 
                         var nextExpr = next();
                         ThrowIfExprIsNull(nextExpr, t);
 
-                        if (nextExpr.ReturnType == Constants.StringType)
+                        if (nextExpr.ReturnType == Enums.Type.String)
                         {
-                            ctx.BuiltExpressions
-                                .RemoveAt(ctx.BuiltExpressions.Count - 1);
+                            ctx.PopExpr();
 
-                            return new StringConcatExpr() { Token = t, A = prevExpr, B = nextExpr, };
+                            return new StringConcatExpr(Env) { Token = t, A = prevExpr, B = nextExpr, };
                         }
 
                         ctx.RestoreFrom(ctxCopy);

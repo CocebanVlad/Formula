@@ -151,6 +151,24 @@ namespace Xtel.PromoFormula {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The arguments provided do not match the signature. Expected: {0}. Provided: {1}..
+        /// </summary>
+        internal static string the_arguments_provided_do_not_match_the_signature__expected__0__provided__1 {
+            get {
+                return ResourceManager.GetString("the_arguments_provided_do_not_match_the_signature__expected__0__provided__1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name &apos;&apos; does not exist in the current environment.
+        /// </summary>
+        internal static string the_name__0__does_not_exist_in_the_current_environment {
+            get {
+                return ResourceManager.GetString("the_name__0__does_not_exist_in_the_current_environment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unexpected char at: {0}.
         /// </summary>
         internal static string unexpected_char_at__0 {

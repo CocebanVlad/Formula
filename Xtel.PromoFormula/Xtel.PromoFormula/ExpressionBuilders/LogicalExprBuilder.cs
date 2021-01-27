@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Expressions;
 using Xtel.PromoFormula.Interfaces;
@@ -9,18 +8,22 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 {
     public class LogicalExprBuilder : ExprBuilder
     {
+        public LogicalExprBuilder(IEnv env)
+            : base(env)
+        {
+        }
+
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
             if (ctx.Token is LogicalOperatorToken t)
             {
-                if (initiator is LogicalExprBuilder || ctx.BuiltExpressions.Count == 0)
+                if (initiator is LogicalExprBuilder || ctx.BuiltExprs.Count == 0)
                 {
                     return null;
                 }
 
-                var prevExpr =
-                    ctx.BuiltExpressions.Last();
-                if (prevExpr.ReturnType != Constants.BoolType)
+                var prevExpr = ctx.LastExpr;
+                if (prevExpr.ReturnType != Enums.Type.Bool)
                 {
                     throw new BuildEx(t.IdxS, t.IdxE,
                         string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
@@ -29,7 +32,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                             ));
                 }
 
-                ctx.MoveToTheNextIndex();
+                ctx.NextIndex();
 
                 IExpr nextExpr;
                 while (true)
@@ -37,18 +40,17 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                     nextExpr = next();
                     ThrowIfExprIsNull(nextExpr, t);
 
-                    if (nextExpr.ReturnType == Constants.BoolType)
+                    if (nextExpr.ReturnType == Enums.Type.Bool)
                     {
                         break;
                     }
 
-                    ctx.BuiltExpressions.Add(nextExpr);
+                    ctx.PushExpr(nextExpr);
                 }
 
-                ctx.BuiltExpressions
-                    .RemoveAt(ctx.BuiltExpressions.Count - 1);
+                ctx.PopExpr();
 
-                return new LogicalExpr() { Token = t, A = prevExpr, B = nextExpr, };
+                return new LogicalExpr(Env) { Token = t, A = prevExpr, B = nextExpr, };
             }
 
             return null;

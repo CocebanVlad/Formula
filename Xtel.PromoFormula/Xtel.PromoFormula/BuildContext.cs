@@ -4,31 +4,58 @@ using Xtel.PromoFormula.Interfaces;
 
 namespace Xtel.PromoFormula
 {
-    public class BuildContext
+    public class BuildContext : IRestorable<BuildContext>
     {
-        public int Index { get; private set; } = 0;
-        public IList<IToken> Tokens { get; set; }
-        public IToken Token => HasToken() ? Tokens[Index] : null;
-        public IList<IExpr> BuiltExpressions { get; set; }
+        public int Idx { get; private set; }
+        public IList<IToken> Tokens { get; private set; }
+        public IList<IExpr> BuiltExprs { get; private set; }
 
-        public void MoveToTheNextIndex() => Index++;
+        public bool HasToken => Idx < Tokens.Count;
+        public IToken Token => HasToken ? Tokens[Idx] : null;
+        public int LastExprIdx => BuiltExprs.Count - 1;
+        public IExpr LastExpr => LastExprIdx > -1 ? BuiltExprs[LastExprIdx] : null;
 
-        public void ResetIndex() => Index = 0;
+        private BuildContext()
+        {
+        }
 
-        public bool HasToken() => Index < Tokens.Count;
+        public BuildContext(IList<IToken> tokens)
+        {
+            Idx = 0;
+            Tokens = tokens;
+            BuiltExprs = new List<IExpr>();
+        }
 
         public BuildContext CreateCopy() => new BuildContext()
         {
-            Index = Index,
+            Idx = Idx,
             Tokens = Tokens.ToList(),
-            BuiltExpressions = BuiltExpressions.ToList(),
+            BuiltExprs = BuiltExprs.ToList(),
         };
 
-        public void RestoreFrom(BuildContext ctx)
+        public void RestoreFrom(BuildContext copy)
         {
-            Index = ctx.Index;
-            Tokens = ctx.Tokens.ToList();
-            BuiltExpressions = ctx.BuiltExpressions.ToList();
+            Idx = copy.Idx;
+            Tokens = copy.Tokens.ToList();
+            BuiltExprs = copy.BuiltExprs.ToList();
+        }
+
+        public void NextIndex() => Idx++;
+
+        public void ResetIndex() => Idx = 0;
+
+        public void PushExpr(IExpr expr) => BuiltExprs.Add(expr);
+
+        public IExpr PopExpr()
+        {
+            if (BuiltExprs.Count > 0)
+            {
+                var expr = LastExpr;
+                BuiltExprs.RemoveAt(LastExprIdx);
+                return expr;
+            }
+
+            return null;
         }
     }
 }
