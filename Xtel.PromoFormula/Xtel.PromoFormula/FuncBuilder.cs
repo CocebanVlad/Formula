@@ -13,7 +13,9 @@ namespace Xtel.PromoFormula
     {
         private string _name;
         private Enums.Type _returnType;
-        private readonly IFuncSignature _signature = new FuncSignature();
+        private readonly IFuncArgsSignature _argsSig
+            = new FuncArgsSignature();
+
         private Action<IEnv, IList<IExpr>> _extraArgsValidationAction = null;
 
         private FuncBuilder()
@@ -24,18 +26,18 @@ namespace Xtel.PromoFormula
 
         private Action<IEnv, IList<IExpr>> BuildArgsValidationAction() => (env, args) =>
         {
-            var expectedSignatureStr =
-                $"{_returnType} {_name}({string.Join(",", _signature)})";
-
-            var providedSignatureStr =
-                $"{_returnType} {_name}({string.Join(",", args.Select(arg => arg.ReturnType))})";
-
-            if (!Helpers.ArgsMatchFuncSignature(args, _signature))
+            if (!Helpers.ArgsMatchFuncArgsSignature(args, _argsSig))
             {
+                var expectedSigStr =
+                    Helpers.ToFuncSig(_name, _returnType, _argsSig);
+
+                var providedSigStr =
+                    Helpers.ToFuncSig(_name, _returnType, args.Select(arg => arg.ReturnType).ToList());
+
                 throw new Exception(
                     string.Format(tr.the_arguments_provided_do_not_match_the_signature__expected__0__provided__1,
-                        expectedSignatureStr,
-                        providedSignatureStr
+                        expectedSigStr,
+                        providedSigStr
                         ));
             }
 
@@ -56,7 +58,7 @@ namespace Xtel.PromoFormula
         #region Argument defining step
         public IFuncBuilder_ArgDefiningStep WithArg(Enums.Type type)
         {
-            _signature.Add(type);
+            _argsSig.Add(type);
             return this;
         }
 

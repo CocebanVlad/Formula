@@ -203,21 +203,21 @@ namespace Xtel.PromoFormula
                     ));
         }
 
-        public static bool ArgsMatchFuncSignature(IList<IExpr> args, IFuncSignature signature)
+        public static bool ArgsMatchFuncArgsSignature(IList<IExpr> args, IFuncArgsSignature argsSig)
         {
-            if (args.Count != signature.Count)
+            if (args.Count != argsSig.Count)
             {
                 return false;
             }
 
             for (var idx = 0; idx < args.Count; idx++)
             {
-                if (signature[idx] == Enums.Type.Any)
+                if (argsSig[idx] == Enums.Type.Any)
                 {
                     continue;
                 }
 
-                if (args[idx].ReturnType != signature[idx])
+                if (args[idx].ReturnType != argsSig[idx])
                 {
                     return false;
                 }
@@ -259,5 +259,8 @@ namespace Xtel.PromoFormula
 
             return elements;
         }
+
+        public static string ToFuncSig(string name, Enums.Type returnType, IList<Enums.Type> argsT) =>
+            $"{returnType} {name}({string.Join(",", argsT)})";
     }
 }
