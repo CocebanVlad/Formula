@@ -60,7 +60,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                     ctx.PushExpr(expr);
                 }
 
-                func.ValidateArgs(funcExpr.Args);
+                func.ValidateArgs(Env, funcExpr.Args);
 
                 ctx.NextIndex();
 

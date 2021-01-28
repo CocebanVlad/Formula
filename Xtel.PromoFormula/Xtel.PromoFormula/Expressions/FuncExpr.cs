@@ -21,7 +21,7 @@ namespace Xtel.PromoFormula.Expressions
         {
         }
 
-        public override object Eval() => Func.Exec(Args);
+        public override object Eval() => Func.Exec(Env, Args);
 
         public override string GetAsString() => Helpers.ToString(Eval());
     }
