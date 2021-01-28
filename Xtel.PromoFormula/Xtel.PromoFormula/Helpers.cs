@@ -203,7 +203,7 @@ namespace Xtel.PromoFormula
                     ));
         }
 
-        public static bool ArgsMatchFuncSignature(IList<IExpr> args, IList<Enums.Type> signature)
+        public static bool ArgsMatchFuncSignature(IList<IExpr> args, IFuncSignature signature)
         {
             if (args.Count != signature.Count)
             {

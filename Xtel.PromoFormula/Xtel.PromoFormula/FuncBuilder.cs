@@ -13,7 +13,7 @@ namespace Xtel.PromoFormula
     {
         private string _name;
         private Enums.Type _returnType;
-        private readonly IList<Enums.Type> _signature = new List<Enums.Type>();
+        private readonly IFuncSignature _signature = new FuncSignature();
         private Action<IEnv, IList<IExpr>> _extraArgsValidationAction = null;
 
         private FuncBuilder()
