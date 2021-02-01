@@ -21,6 +21,6 @@ namespace Xtel.PromoFormula.Expressions
 
         public bool GetAsBool() => (bool)base.Eval();
 
-        public object Negate() => !(bool)base.Eval();
+        public object Negate() => Helpers.Negate(this);
     }
 }

@@ -18,7 +18,7 @@ namespace Xtel.PromoFormula.Expressions
         {
         }
 
-        private string Concat() => A.GetAsString() + B.GetAsString();
+        private string Concat() => Helpers.Concat(this);
 
         public override object Eval() => Concat();
 

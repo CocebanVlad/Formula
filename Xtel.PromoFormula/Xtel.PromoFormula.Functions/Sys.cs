@@ -65,5 +65,11 @@ namespace Xtel.PromoFormula.Functions
             .WithArg(Enums.Type.Any)
             .ReturnAny()
             .WithImpl((env, args) => (bool)args[0].Eval() ? args[1].Eval() : args[2].Eval());
+
+        public static IFunc AsAny = FuncBuilder.Create()
+            .WithName("AsAny")
+            .WithArg(Enums.Type.Any)
+            .ReturnAny()
+            .WithImpl((env, args) => args[0].Eval());
     }
 }

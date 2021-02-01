@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Xtel.PromoFormula.Enums;
+using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Interfaces;
 
 namespace Xtel.PromoFormula
@@ -203,21 +204,21 @@ namespace Xtel.PromoFormula
                     ));
         }
 
-        public static bool ArgsMatchFuncArgsSignature(IList<IExpr> args, IFuncArgsSignature argsSig)
+        public static bool ArgsMatchFuncArgsSignature(IList<IExpr> args, IList<Enums.Type> sig)
         {
-            if (args.Count != argsSig.Count)
+            if (args.Count != sig.Count)
             {
                 return false;
             }
 
             for (var idx = 0; idx < args.Count; idx++)
             {
-                if (argsSig[idx] == Enums.Type.Any)
+                if (sig[idx] == Enums.Type.Any)
                 {
                     continue;
                 }
 
-                if (args[idx].ReturnType != argsSig[idx])
+                if (args[idx].ReturnType != sig[idx])
                 {
                     return false;
                 }
@@ -260,7 +261,50 @@ namespace Xtel.PromoFormula
             return elements;
         }
 
-        public static string ToFuncSig(string name, Enums.Type returnType, IList<Enums.Type> argsT) =>
-            $"{returnType} {name}({string.Join(",", argsT)})";
+        public static string ToFuncSig(string name, Enums.Type returnType, IList<Enums.Type> sig) =>
+            $"{returnType} {name}({string.Join(",", sig)})";
+
+        public static bool TypesMatch(Enums.Type t1, Enums.Type t2) => t1 == t2 || t1 == Enums.Type.Any || t2 == Enums.Type.Any;
+
+        public static double ApplyPlus(IExpr expr)
+        {
+            var res = expr.Eval();
+
+            if (res is double num)
+            {
+                return +num;
+            }
+
+            throw new RuntimeEx(expr.IdxS, expr.IdxE,
+                string.Format(tr.cant_apply__0__on__1, "+", res.GetType().FullName));
+        }
+
+        public static double ApplyMinus(IExpr expr)
+        {
+            var res = expr.Eval();
+
+            if (res is double num)
+            {
+                return -num;
+            }
+
+            throw new RuntimeEx(expr.IdxS, expr.IdxE,
+                string.Format(tr.cant_apply__0__on__1, "-", res.GetType().FullName));
+        }
+
+        public static bool Negate(IExpr expr)
+        {
+            var res = expr.Eval();
+
+            if (res is bool b)
+            {
+                return !b;
+            }
+
+            throw new RuntimeEx(expr.IdxS, expr.IdxE,
+                string.Format(tr.cant_apply__0__on__1, "!", res.GetType().FullName));
+        }
+
+        public static string Concat(IHasAAndB expr) => ToString(expr.A.Eval()) + ToString(expr.B.Eval());
     }
 }

@@ -13,22 +13,37 @@ namespace Xtel.PromoFormula.Expressions
 
         public override int IdxS => A.IdxS;
         public override int IdxE => B.IdxE;
-        public override Enums.Type ReturnType => Enums.Type.Number;
+        public override Enums.Type ReturnType =>
+            A.ReturnType == Enums.Type.Any || B.ReturnType == Enums.Type.Any ? Enums.Type.Any : Enums.Type.Number; // might also be `String`
 
         public MathExpr(IEnv env)
             : base(env)
         {
         }
 
-        private double ExecOp()
+        public double GetAsNumber() => (double)Eval();
+
+        public object ApplyPlus() => Helpers.ApplyPlus(this);
+
+        public object ApplyMinus() => Helpers.ApplyMinus(this);
+
+        public override object Eval()
         {
-            if (!(A.Eval() is double a))
+            var a = A.Eval();
+            var b = B.Eval();
+
+            if (a is string || b is string)
+            {
+                return Helpers.Concat(this);
+            }
+
+            if (!(a is double numA))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
                     string.Format(tr._0__is_not__1__type, "A", Enums.Type.Number));
             }
 
-            if (!(B.Eval() is double b))
+            if (!(b is double numB))
             {
                 throw new RuntimeEx(A.IdxS, A.IdxE,
                     string.Format(tr._0__is_not__1__type, "A", Enums.Type.Number));
@@ -37,28 +52,20 @@ namespace Xtel.PromoFormula.Expressions
             switch (Token.Operation)
             {
                 case ArithmeticOperation.Add:
-                    return a + b;
+                    return numA + numB;
                 case ArithmeticOperation.Subtract:
-                    return a - b;
+                    return numA - numB;
                 case ArithmeticOperation.Multiply:
-                    return a * b;
+                    return numA * numB;
                 case ArithmeticOperation.Divide:
-                    return a / b;
+                    return numA / numB;
                 case ArithmeticOperation.Mod:
-                    return a % b;
+                    return numA % numB;
             }
 
             throw new RuntimeEx(IdxS, IdxE,
                 string.Format(tr.unknown_operation__0, Token));
         }
-
-        public double GetAsNumber() => ExecOp();
-
-        public object ApplyPlus() => +ExecOp();
-
-        public object ApplyMinus() => -ExecOp();
-
-        public override object Eval() => ExecOp();
 
         public override string GetAsString() => Helpers.ToString(Eval());
 

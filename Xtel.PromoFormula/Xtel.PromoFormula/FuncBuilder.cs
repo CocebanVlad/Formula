@@ -13,8 +13,8 @@ namespace Xtel.PromoFormula
     {
         private string _name;
         private Enums.Type _returnType;
-        private readonly IFuncArgsSignature _argsSig
-            = new FuncArgsSignature();
+        private readonly IList<Enums.Type> _sig
+            = new List<Enums.Type>();
 
         private Action<IEnv, IList<IExpr>> _extraArgsValidationAction = null;
 
@@ -26,10 +26,10 @@ namespace Xtel.PromoFormula
 
         private Action<IEnv, IList<IExpr>> BuildArgsValidationAction() => (env, args) =>
         {
-            if (!Helpers.ArgsMatchFuncArgsSignature(args, _argsSig))
+            if (!Helpers.ArgsMatchFuncArgsSignature(args, _sig))
             {
                 var expectedSigStr =
-                    Helpers.ToFuncSig(_name, _returnType, _argsSig);
+                    Helpers.ToFuncSig(_name, _returnType, _sig);
 
                 var providedSigStr =
                     Helpers.ToFuncSig(_name, _returnType, args.Select(arg => arg.ReturnType).ToList());
@@ -58,7 +58,7 @@ namespace Xtel.PromoFormula
         #region Argument defining step
         public IFuncBuilder_ArgDefiningStep WithArg(Enums.Type type)
         {
-            _argsSig.Add(type);
+            _sig.Add(type);
             return this;
         }
 

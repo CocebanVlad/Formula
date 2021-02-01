@@ -24,7 +24,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
                 if (nextExpr is ICanBeNegated expr)
                 {
-                    if (expr.ReturnType != Enums.Type.Bool)
+                    if (!Helpers.TypesMatch(expr.ReturnType, Enums.Type.Bool))
                     {
                         throw new BuildEx(t.IdxS, expr.IdxE,
                             string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,

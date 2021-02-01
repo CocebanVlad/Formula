@@ -21,8 +21,8 @@ namespace Xtel.PromoFormula.Expressions
 
         public double GetAsNumber() => (double)Eval();
 
-        public object ApplyPlus() => +(double)Eval();
+        public object ApplyPlus() => Helpers.ApplyPlus(this);
 
-        public object ApplyMinus() => -(double)Eval();
+        public object ApplyMinus() => Helpers.ApplyMinus(this);
     }
 }

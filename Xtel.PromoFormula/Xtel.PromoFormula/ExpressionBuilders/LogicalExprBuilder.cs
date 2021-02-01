@@ -23,7 +23,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                 }
 
                 var prevExpr = ctx.LastExpr;
-                if (prevExpr.ReturnType != Enums.Type.Bool)
+                if (!Helpers.TypesMatch(prevExpr.ReturnType, Enums.Type.Bool))
                 {
                     throw new BuildEx(t.IdxS, t.IdxE,
                         string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
@@ -34,21 +34,30 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
                 ctx.NextIndex();
 
+                var hasB = false;
+
                 IExpr nextExpr;
                 while (true)
                 {
                     nextExpr = next();
-                    ThrowIfExprIsNull(nextExpr, t);
 
-                    if (nextExpr.ReturnType == Enums.Type.Bool)
+                    if (!hasB)
+                    {
+                        ThrowIfExprIsNull(nextExpr, t);
+                    }
+
+                    if (nextExpr == null)
                     {
                         break;
                     }
 
+                    hasB = true;
                     ctx.PushExpr(nextExpr);
                 }
 
-                ctx.PopExpr();
+                nextExpr = ctx.PopExpr(); // nextExpr
+
+                ctx.PopExpr(); // prevExpr
 
                 return new LogicalExpr(Env) { Token = t, A = prevExpr, B = nextExpr, };
             }

@@ -26,7 +26,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
                 if (nextExpr is ICanBePrefixedWithPlusOrMinus expr)
                 {
-                    if (expr.ReturnType != Enums.Type.Number)
+                    if (!Helpers.TypesMatch(expr.ReturnType, Enums.Type.Number))
                     {
                         throw new BuildEx(t.IdxS, expr.IdxE,
                             string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,

@@ -20,7 +20,7 @@ namespace Xtel.PromoFormula.Expressions
         {
         }
 
-        public object ApplyPlus() => IsPlus ? Expr.Eval() : Expr.ApplyPlus();
+        public object ApplyPlus() => Expr.ApplyPlus();
 
         public object ApplyMinus() => Expr.ApplyMinus();
 

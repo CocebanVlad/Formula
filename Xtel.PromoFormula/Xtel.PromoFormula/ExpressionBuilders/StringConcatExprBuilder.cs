@@ -17,6 +17,11 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
         public override IExpr Build(BuildContext ctx, IExprBuilder initiator, Func<IExpr> next)
         {
+            //
+            // `StringConcatExprBuilder` is an optimization for expressions that contains a `+` (plus),
+            // and at least one operand of a `String` type.
+            // String concatenations are also possible with objects of an `Any` type. Only that, those
+            // expressions are built as `MathExpr` (since there is no way, rather than identifying type at the runtime).
             if (ctx.Token is ArithmeticSymbolToken t && t.Operation == Enums.ArithmeticOperation.Add)
             {
                 if (initiator is StringConcatExprBuilder || ctx.BuiltExprs.Count == 0)

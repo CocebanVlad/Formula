@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using Xtel.PromoFormula.BuildingPipelines;
 using Xtel.PromoFormula.Environments;
 using Xtel.PromoFormula.Exceptions;
@@ -58,6 +59,12 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
 
             EvalAssert.IsExpectedEvalResult<double>(
                 _tokenizer, _pipeline, "-(1 + 1)", -2);
+
+            EvalAssert.IsExpectedEvalResult<double>(
+                _tokenizer, _pipeline, "-AsAny(2)", -2);
+
+            EvalAssert.IsExpectedEvalResult<double>(
+                _tokenizer, _pipeline, "-AsAny(-2)", 2);
         }
 
         [TestMethod]
@@ -77,6 +84,12 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
 
             Assert.ThrowsException<BuildEx>(() =>
                 _pipeline.Build(_tokenizer.Tokenize("(1) - 1)")));
+
+            Assert.ThrowsException<RuntimeEx>(() =>
+                _pipeline.Build(_tokenizer.Tokenize("-AsAny('2')")).First().Eval());
+
+            Assert.ThrowsException<RuntimeEx>(() =>
+                _pipeline.Build(_tokenizer.Tokenize("-AsAny('-2')")).First().Eval());
         }
 
         [TestMethod]
@@ -130,6 +143,16 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
 
             EvalAssert.IsExpectedEvalResult<bool>(
                 _tokenizer, _pipeline, "(10 * 2) === (9 + 9 + 2)", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, "!AsAny(20 <= 11)", true);
+        }
+
+        [TestMethod]
+        public void Build_ConditionalExpr_WithNumbers_MustThrowException()
+        {
+            Assert.ThrowsException<RuntimeEx>(() =>
+                _pipeline.Build(_tokenizer.Tokenize("!AsAny('20 <= 11')")).First().Eval());
         }
 
         [TestMethod]
@@ -162,6 +185,18 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
 
             EvalAssert.IsExpectedEvalResult<bool>(
                 _tokenizer, _pipeline, "1 + 1 + 1 == 4 || 1 + 2 == 3", true);
+
+            EvalAssert.IsExpectedEvalResult<bool>(
+                _tokenizer, _pipeline, "AsAny(1 + 1 + 1) == 4 || 1 + 2 == AsAny(3) && AsAny('1') == AsAny('1')", true);
+        }
+
+        [TestMethod]
+        public void Build_LogicalExpr_MustThrowException()
+        {
+            Assert.ThrowsException<RuntimeEx>(() =>
+                _pipeline.Build(_tokenizer.Tokenize("AsAny(1 + 1 + 1) == 4 || 1 + 2 == AsAny(3) && 1 == AsAny('1')"))
+                    .First()
+                    .Eval());
         }
 
         [TestMethod]
@@ -172,6 +207,9 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
 
             EvalAssert.IsExpectedEvalResult<string>(
                 _tokenizer, _pipeline, "((6 / (2 % 4) * 10)) + ' cm'", "30 cm");
+
+            EvalAssert.IsExpectedEvalResult<string>(
+                _tokenizer, _pipeline, "1 + AsAny('a')", "1a");
         }
 
         [TestMethod]
@@ -191,7 +229,7 @@ namespace Xtel.PromoFormula.Tests.BuildingPipelines
                 "Sum([1, 2, 3, 4, 5])", 15);
 
             EvalAssert.IsExpectedEvalResult<string>(_tokenizer, _pipeline,
-                "Iif((10 % 5) == 0, 'Yeey', -1)", "Yeey");
+                "Iif((10 % 5) == 0, 'Hello', -1)", "Hello");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Xtel.PromoFormula.Enums;
+﻿using System.Linq;
+using Xtel.PromoFormula.Enums;
 using Xtel.PromoFormula.Exceptions;
 using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;
@@ -22,6 +23,11 @@ namespace Xtel.PromoFormula.Expressions
 
         private bool EvalCondition()
         {
+            if (A.ReturnType == Enums.Type.Any || B.ReturnType == Enums.Type.Any)
+            {
+                return PerformComparisonAsForAny();
+            }
+
             if (A.ReturnType != B.ReturnType)
             {
                 throw new RuntimeEx(IdxS, IdxE, tr.a_and_b_must_be_of_a_same_type);
@@ -40,6 +46,44 @@ namespace Xtel.PromoFormula.Expressions
             throw new RuntimeEx(IdxS, IdxE,
                 string.Format(tr.cant_compare_objects_of__0__type,
                     A.ReturnType
+                    ));
+        }
+
+        private bool PerformComparisonAsForAny()
+        {
+            var a = A.Eval();
+            var b = B.Eval();
+
+            if (a.GetType() != b.GetType())
+            {
+                throw new RuntimeEx(IdxS, IdxE, tr.a_and_b_must_be_of_a_same_type);
+            }
+
+            if (a is bool)
+            {
+                return PerformComparisonAsForBools();
+            }
+            if (a is double)
+            {
+                return PerformComparisonAsForNumbers();
+            }
+            if (a is string)
+            {
+                return PerformComparisonAsForStrings();
+            }
+
+            switch (Token.Operator)
+            {
+                case ComparisonOperator.Equal:
+                    return a == b;
+                case ComparisonOperator.NotEqual:
+                    return a != b;
+            }
+
+            throw new BuildEx(IdxS, IdxE,
+                string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type_any_whenever_those_cannot_be_evaluated_as__1,
+                    Token.Operator,
+                    string.Join(", ", System.Enum.GetNames(typeof(Enums.Type)).Select(t => $"'{t}'"))
                     ));
         }
 

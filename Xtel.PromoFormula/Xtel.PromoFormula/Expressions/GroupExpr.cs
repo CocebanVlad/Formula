@@ -1,10 +1,9 @@
-﻿using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
+﻿using Xtel.PromoFormula.Interfaces;
 using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
-    public class GroupExpr : Expr, ICanBePrefixedWithPlusOrMinus
+    public class GroupExpr : Expr, ICanBePrefixedWithPlusOrMinus, ICanBeNegated
     {
         public ParenthesisToken OpenToken { get; set; }
         public ParenthesisToken CloseToken { get; set; }
@@ -26,11 +25,7 @@ namespace Xtel.PromoFormula.Expressions
                 return expr.ApplyPlus();
             }
 
-            throw new RuntimeEx(IdxS, IdxE,
-                string.Format(tr.cant_apply__0__on__1,
-                    "+",
-                    InnerExpr.GetType().FullName
-                    ));
+            return Helpers.ApplyPlus(this);
         }
 
         public object ApplyMinus()
@@ -40,11 +35,17 @@ namespace Xtel.PromoFormula.Expressions
                 return expr.ApplyMinus();
             }
 
-            throw new RuntimeEx(IdxS, IdxE,
-                string.Format(tr.cant_apply__0__on__1,
-                    "-",
-                    InnerExpr.GetType().FullName
-                    ));
+            return Helpers.ApplyMinus(this);
+        }
+
+        public object Negate()
+        {
+            if (InnerExpr is ICanBeNegated expr)
+            {
+                return expr.Negate();
+            }
+
+            return Helpers.Negate(this);
         }
 
         public override object Eval() => InnerExpr.Eval();

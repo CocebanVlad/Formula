@@ -46,7 +46,7 @@ namespace Xtel.PromoFormula.Expressions
                 string.Format(tr.unknown_operator__0, Token));
         }
 
-        public object Negate() => !EvalLogic();
+        public object Negate() => Helpers.Negate(this);
 
         public bool GetAsBool() => EvalLogic();
 

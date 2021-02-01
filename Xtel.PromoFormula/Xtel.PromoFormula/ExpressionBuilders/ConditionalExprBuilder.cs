@@ -29,7 +29,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                 var nextExpr = next();
                 ThrowIfExprIsNull(nextExpr, t);
 
-                if (prevExpr.ReturnType != nextExpr.ReturnType)
+                if (!Helpers.TypesMatch(prevExpr.ReturnType, nextExpr.ReturnType))
                 {
                     throw new BuildEx(t.IdxS, t.IdxE,
                         string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1__and__2,

@@ -151,6 +151,16 @@ namespace Xtel.PromoFormula {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operator &apos;{0}&apos; cannot be applied to operands of type &apos;Any&apos;, whenever those cannot be evaluated as: {1}.
+        /// </summary>
+        internal static string operator__0__cannot_be_applied_to_operands_of_type_any_whenever_those_cannot_be_evaluated_as__1 {
+            get {
+                return ResourceManager.GetString("operator__0__cannot_be_applied_to_operands_of_type_any_whenever_those_cannot_be_e" +
+                        "valuated_as__1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The arguments provided do not match the signature. Expected: {0}. Provided: {1}..
         /// </summary>
         internal static string the_arguments_provided_do_not_match_the_signature__expected__0__provided__1 {

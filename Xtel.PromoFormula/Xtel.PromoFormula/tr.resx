@@ -132,6 +132,9 @@
   <data name="invalid_numeric_literal" xml:space="preserve">
     <value>Invalid numeric literal</value>
   </data>
+  <data name="operator__0__cannot_be_applied_to_operands_of_type_any_whenever_those_cannot_be_evaluated_as__1" xml:space="preserve">
+    <value>Operator '{0}' cannot be applied to operands of type 'Any', whenever those cannot be evaluated as: {1}</value>
+  </data>
   <data name="operator__0__cannot_be_applied_to_operands_of_type__1" xml:space="preserve">
     <value>Operator '{0}' cannot be applied to operands of type '{1}'</value>
   </data>

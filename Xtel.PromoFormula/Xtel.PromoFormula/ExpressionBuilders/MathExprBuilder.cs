@@ -35,7 +35,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                     prevExpr = superior.B;
                 }
 
-                if (prevExpr.ReturnType != Enums.Type.Number)
+                if (!Helpers.TypesMatch(prevExpr.ReturnType, Enums.Type.Number))
                 {
                     throw new BuildEx(t.IdxS, t.IdxE,
                         string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
@@ -49,7 +49,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                 var nextExpr = next();
                 ThrowIfExprIsNull(nextExpr, t);
 
-                if (nextExpr.ReturnType != Enums.Type.Number)
+                if (!Helpers.TypesMatch(nextExpr.ReturnType, Enums.Type.Number))
                 {
                     if (_applyStringConcatOptimization)
                     {

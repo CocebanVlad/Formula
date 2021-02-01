@@ -4,7 +4,7 @@ using Xtel.PromoFormula.Tokens;
 
 namespace Xtel.PromoFormula.Expressions
 {
-    public class FuncExpr : Expr
+    public class FuncExpr : Expr, ICanBePrefixedWithPlusOrMinus, ICanBeNegated
     {
         public LiteralToken Token { get; set; }
         public ParenthesisToken ArgsBlockOpenToken { get; set; }
@@ -20,6 +20,12 @@ namespace Xtel.PromoFormula.Expressions
             : base(env)
         {
         }
+
+        public object ApplyPlus() => Helpers.ApplyPlus(this);
+
+        public object ApplyMinus() => Helpers.ApplyMinus(this);
+
+        public object Negate() => Helpers.Negate(this);
 
         public override object Eval() => Func.Exec(Env, Args);
 
