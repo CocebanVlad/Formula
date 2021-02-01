@@ -55,7 +55,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xtel.PromoFormula\CalculationService.csproj">
+    <ProjectReference Include="..\CalculationService.Functions\CalculationService.Functions.csproj">
+      <Project>{e4d5ccb1-ccdd-4a5e-b5b8-5433fcab5e0c}</Project>
+      <Name>CalculationService.Functions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CalculationService\CalculationService.csproj">
       <Project>{ed20fe3f-796f-41ac-b6bc-6fb0173ee3cf}</Project>
       <Name>CalculationService</Name>
     </ProjectReference>

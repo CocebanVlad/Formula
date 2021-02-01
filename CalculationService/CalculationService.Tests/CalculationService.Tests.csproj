@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Xtel.PromoFormula.Functions\CalculationService.Functions.csproj" />
-    <ProjectReference Include="..\Xtel.PromoFormula\CalculationService.csproj" />
+    <ProjectReference Include="..\CalculationService.Functions\CalculationService.Functions.csproj" />
+    <ProjectReference Include="..\CalculationService\CalculationService.csproj" />
   </ItemGroup>
 
 </Project>

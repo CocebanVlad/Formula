@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculationService", "Xtel.PromoFormula\CalculationService.csproj", "{ED20FE3F-796F-41AC-B6BC-6FB0173EE3CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculationService", "CalculationService\CalculationService.csproj", "{ED20FE3F-796F-41AC-B6BC-6FB0173EE3CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculationService.Tests", "Xtel.PromoFormula.Tests\CalculationService.Tests.csproj", "{B522C6D6-3921-466A-984E-03095844A4B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculationService.Tests", "CalculationService.Tests\CalculationService.Tests.csproj", "{B522C6D6-3921-466A-984E-03095844A4B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculationService.NetFramework.Tests", "Xtel.PromoFormula.NetFramework.Tests\CalculationService.NetFramework.Tests.csproj", "{05988A50-DE23-4DFB-B1FE-AFEEC17B938E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculationService.NetFramework.Tests", "CalculationService.NetFramework.Tests\CalculationService.NetFramework.Tests.csproj", "{05988A50-DE23-4DFB-B1FE-AFEEC17B938E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculationService.Functions", "Xtel.PromoFormula.Functions\CalculationService.Functions.csproj", "{E4D5CCB1-CCDD-4A5E-B5B8-5433FCAB5E0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculationService.Functions", "CalculationService.Functions\CalculationService.Functions.csproj", "{E4D5CCB1-CCDD-4A5E-B5B8-5433FCAB5E0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
