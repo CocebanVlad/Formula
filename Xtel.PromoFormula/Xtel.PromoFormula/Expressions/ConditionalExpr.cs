@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Enums;
+using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
+using System.Linq;
 
-namespace Xtel.PromoFormula.Expressions
+namespace CalculationService.Expressions
 {
     public class ConditionalExpr : Expr, IHasAAndB, ICanBeUsedAsBool, ICanBeNegated, IMathExprSuperior
     {
@@ -80,7 +80,7 @@ namespace Xtel.PromoFormula.Expressions
                     return a != b;
             }
 
-            throw new BuildEx(IdxS, IdxE,
+            throw new CodeBuildEx(IdxS, IdxE,
                 string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type_any_whenever_those_cannot_be_evaluated_as__1,
                     Token.Operator,
                     string.Join(", ", System.Enum.GetNames(typeof(Enums.Type)).Select(t => $"'{t}'"))

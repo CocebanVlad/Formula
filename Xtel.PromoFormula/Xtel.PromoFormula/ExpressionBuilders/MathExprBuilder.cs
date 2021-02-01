@@ -1,11 +1,11 @@
-﻿using System;
-using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Expressions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Enums;
+using CalculationService.Exceptions;
+using CalculationService.Expressions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
+using System;
 
-namespace Xtel.PromoFormula.ExpressionBuilders
+namespace CalculationService.ExpressionBuilders
 {
     public class MathExprBuilder : ExprBuilder
     {
@@ -37,11 +37,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
                 if (!Helpers.TypesMatch(prevExpr.ReturnType, Enums.Type.Number))
                 {
-                    throw new BuildEx(t.IdxS, t.IdxE,
-                        string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
-                            t,
-                            prevExpr.ReturnType
-                            ));
+                    return null;
                 }
 
                 ctx.NextIndex();
@@ -65,7 +61,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                         }
                     }
 
-                    throw new BuildEx(t.IdxS, t.IdxE,
+                    throw new CodeBuildEx(t.IdxS, t.IdxE,
                         string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
                             t,
                             nextExpr.ReturnType

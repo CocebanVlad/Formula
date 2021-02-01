@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using CalculationService.Interfaces;
+using CalculationService.Tokens;
+using System.Collections.Generic;
 using System.Linq;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
 
-namespace Xtel.PromoFormula.Expressions
+namespace CalculationService.Expressions
 {
     public class ArrayExpr : Expr
     {

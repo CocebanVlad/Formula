@@ -55,9 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xtel.PromoFormula\Xtel.PromoFormula.csproj">
+    <ProjectReference Include="..\Xtel.PromoFormula\CalculationService.csproj">
       <Project>{ed20fe3f-796f-41ac-b6bc-6fb0173ee3cf}</Project>
-      <Name>Xtel.PromoFormula</Name>
+      <Name>CalculationService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

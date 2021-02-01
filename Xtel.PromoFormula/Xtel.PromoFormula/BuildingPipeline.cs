@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
+﻿using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using System.Collections.Generic;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     public abstract class BuildingPipeline : IBuildingPipeline
     {
@@ -47,7 +47,7 @@ namespace Xtel.PromoFormula
                     break;
                 }
 
-                throw new BuildEx(ctx.Token.IdxS, ctx.Token.IdxE, string.Format(
+                throw new CodeBuildEx(ctx.Token.IdxS, ctx.Token.IdxE, string.Format(
                     tr.unexpected_token__0, ctx.Token));
             }
 

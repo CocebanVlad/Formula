@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CalculationService.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Xtel.PromoFormula.Interfaces;
 
-namespace Xtel.PromoFormula.Environments
+namespace CalculationService.Environments
 {
     public class FormulaEnv : Env
     {

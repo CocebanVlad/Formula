@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class FuncRepositoryAttribute : Attribute

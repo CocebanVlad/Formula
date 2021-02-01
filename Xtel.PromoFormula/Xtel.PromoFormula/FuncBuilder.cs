@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xtel.PromoFormula.Interfaces;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     public partial class FuncBuilder :
         IFuncBuilder,
@@ -34,7 +35,7 @@ namespace Xtel.PromoFormula
                 var providedSigStr =
                     Helpers.ToFuncSig(_name, _returnType, args.Select(arg => arg.ReturnType).ToList());
 
-                throw new Exception(
+                throw new Ex(
                     string.Format(tr.the_arguments_provided_do_not_match_the_signature__expected__0__provided__1,
                         expectedSigStr,
                         providedSigStr

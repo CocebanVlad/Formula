@@ -1,8 +1,8 @@
-﻿using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Enums;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
 
-namespace Xtel.PromoFormula.Parsers
+namespace CalculationService.Parsers
 {
     public class LogicalOperatorParser : Parser
     {

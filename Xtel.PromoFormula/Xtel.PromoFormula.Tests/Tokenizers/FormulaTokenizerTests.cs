@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CalculationService.Enums;
+using CalculationService.Tests.Utils;
+using CalculationService.Tokenizers;
+using CalculationService.Tokens;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Tests.Utils;
-using Xtel.PromoFormula.Tokenizers;
-using Xtel.PromoFormula.Tokens;
 
-namespace Xtel.PromoFormula.Tests.Tokenizers
+namespace CalculationService.Tests.Tokenizers
 {
     [TestClass]
     public class FormulaTokenizerTests

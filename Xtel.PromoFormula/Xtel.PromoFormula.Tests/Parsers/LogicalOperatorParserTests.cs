@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xtel.PromoFormula.Parsers;
-using Xtel.PromoFormula.Tests.Utils;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Parsers;
+using CalculationService.Tests.Utils;
+using CalculationService.Tokens;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Xtel.PromoFormula.Tests.Parsers
+namespace CalculationService.Tests.Parsers
 {
     [TestClass]
     public class LogicalOperatorParserTests

@@ -1,4 +1,4 @@
-﻿namespace Xtel.PromoFormula.Enums
+﻿namespace CalculationService.Enums
 {
     public enum ComparisonOperator
     {

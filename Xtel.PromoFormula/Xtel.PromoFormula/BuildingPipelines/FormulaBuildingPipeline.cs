@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using Xtel.PromoFormula.ExpressionBuilders;
-using Xtel.PromoFormula.Interfaces;
+﻿using CalculationService.ExpressionBuilders;
+using CalculationService.Interfaces;
+using System.Collections.Generic;
 
-namespace Xtel.PromoFormula.BuildingPipelines
+namespace CalculationService.BuildingPipelines
 {
     public class FormulaBuildingPipeline : BuildingPipeline
     {
-        // With the StringConcat optimization turn on, the behaviour is the same as in C#
+        // With the StringConcat optimization turn on, the behavior is the same as in C#
         private const bool ApplyStringConcatOptimization = true;
 
         protected override IList<IExprBuilder> Builders { get; }

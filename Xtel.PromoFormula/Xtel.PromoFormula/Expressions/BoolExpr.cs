@@ -1,8 +1,8 @@
-﻿using System;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Interfaces;
+using CalculationService.Tokens;
+using System;
 
-namespace Xtel.PromoFormula.Expressions
+namespace CalculationService.Expressions
 {
     public class BoolExpr : ConstantExpr, ICanBeUsedAsBool, ICanBeNegated
     {

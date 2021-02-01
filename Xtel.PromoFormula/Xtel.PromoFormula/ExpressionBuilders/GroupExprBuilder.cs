@@ -1,9 +1,9 @@
-﻿using System;
-using Xtel.PromoFormula.Expressions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Expressions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
+using System;
 
-namespace Xtel.PromoFormula.ExpressionBuilders
+namespace CalculationService.ExpressionBuilders
 {
     public class GroupExprBuilder : ExprBuilder
     {

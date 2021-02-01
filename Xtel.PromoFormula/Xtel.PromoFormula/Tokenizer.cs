@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
+﻿using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using System.Collections.Generic;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     public abstract class Tokenizer : ITokenizer
     {
@@ -39,7 +39,7 @@ namespace Xtel.PromoFormula
                     break;
                 }
 
-                throw new ParseEx(idx,
+                throw new CodeParseEx(idx,
                     string.Format(tr.unexpected_char_at__0, idx));
             }
 

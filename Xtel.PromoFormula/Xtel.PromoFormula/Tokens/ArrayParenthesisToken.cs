@@ -1,4 +1,4 @@
-﻿namespace Xtel.PromoFormula.Tokens
+﻿namespace CalculationService.Tokens
 {
     public class ArrayParenthesisToken : Token
     {

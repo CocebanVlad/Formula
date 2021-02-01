@@ -1,8 +1,8 @@
-﻿using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
 
-namespace Xtel.PromoFormula.Parsers
+namespace CalculationService.Parsers
 {
     public class StringParser : Parser
     {
@@ -33,7 +33,7 @@ namespace Xtel.PromoFormula.Parsers
                         }
                     }
 
-                    throw new ParseEx(idxE,
+                    throw new CodeParseEx(idxE,
                         string.Format(tr.unexpected_char_at__0, idxE));
                 }
             }

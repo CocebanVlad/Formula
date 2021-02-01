@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Parsers;
-using Xtel.PromoFormula.Tests.Utils;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Exceptions;
+using CalculationService.Parsers;
+using CalculationService.Tests.Utils;
+using CalculationService.Tokens;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Xtel.PromoFormula.Tests.Parsers
+namespace CalculationService.Tests.Parsers
 {
     [TestClass]
     public class NumberParserTests
@@ -61,9 +61,9 @@ namespace Xtel.PromoFormula.Tests.Parsers
         [TestMethod]
         public void TryParse_InvalidNumericLiteral_MustThrowException()
         {
-            Assert.ThrowsException<ParseEx>(() => _parser.TryParse("1e2.4", 0, out _, out _));
-            Assert.ThrowsException<ParseEx>(() => _parser.TryParse("1234e", 0, out _, out _));
-            Assert.ThrowsException<ParseEx>(() => _parser.TryParse("1234_", 0, out _, out _));
+            Assert.ThrowsException<CodeParseEx>(() => _parser.TryParse("1e2.4", 0, out _, out _));
+            Assert.ThrowsException<CodeParseEx>(() => _parser.TryParse("1234e", 0, out _, out _));
+            Assert.ThrowsException<CodeParseEx>(() => _parser.TryParse("1234_", 0, out _, out _));
         }
     }
 }

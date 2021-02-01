@@ -1,10 +1,10 @@
-﻿using System;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Expressions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Exceptions;
+using CalculationService.Expressions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
+using System;
 
-namespace Xtel.PromoFormula.ExpressionBuilders
+namespace CalculationService.ExpressionBuilders
 {
     public class ConditionalExprBuilder : ExprBuilder
     {
@@ -31,7 +31,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
 
                 if (!Helpers.TypesMatch(prevExpr.ReturnType, nextExpr.ReturnType))
                 {
-                    throw new BuildEx(t.IdxS, t.IdxE,
+                    throw new CodeBuildEx(t.IdxS, t.IdxE,
                         string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1__and__2,
                             t,
                             prevExpr.ReturnType,

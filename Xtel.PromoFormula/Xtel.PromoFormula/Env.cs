@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Xtel.PromoFormula.Interfaces;
+﻿using CalculationService.Interfaces;
+using System.Collections.Generic;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     public abstract class Env : IEnv
     {

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Parsers;
+﻿using CalculationService.Interfaces;
+using CalculationService.Parsers;
+using System.Collections.Generic;
 
-namespace Xtel.PromoFormula.Tokenizers
+namespace CalculationService.Tokenizers
 {
     public class FormulaTokenizer : Tokenizer
     {

@@ -1,11 +1,11 @@
-﻿using System.Globalization;
+﻿using CalculationService.Enums;
+using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
+using System.Globalization;
 using System.Text;
-using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
 
-namespace Xtel.PromoFormula.Parsers
+namespace CalculationService.Parsers
 {
     public class NumberParser : Parser
     {
@@ -57,7 +57,7 @@ namespace Xtel.PromoFormula.Parsers
                         {
                             if (head != 0)
                             {
-                                throw new ParseEx(idxE,
+                                throw new CodeParseEx(idxE,
                                     string.Format(tr.unexpected_char_at__0, idxE));
                             }
 
@@ -70,7 +70,7 @@ namespace Xtel.PromoFormula.Parsers
                         {
                             if (head == 2)
                             {
-                                throw new ParseEx(idxE,
+                                throw new CodeParseEx(idxE,
                                     string.Format(tr.unexpected_char_at__0, idxE));
                             }
 
@@ -91,7 +91,7 @@ namespace Xtel.PromoFormula.Parsers
 
                     if ("_eE".IndexOf(str[idxE - 1]) > -1)
                     {
-                        throw new ParseEx(idxE - 1,
+                        throw new CodeParseEx(idxE - 1,
                             string.Format(tr.unexpected_char_at__0, idxE - 1));
                     }
 
@@ -99,7 +99,7 @@ namespace Xtel.PromoFormula.Parsers
                         number.ToString();
                     if (!double.TryParse(numStr, NumberStyles.Any, Helpers.GetNumberFormatProvider(), out double num))
                     {
-                        throw new ParseEx(idxS, idxE, tr.invalid_numeric_literal);
+                        throw new CodeParseEx(idxS, idxE, tr.invalid_numeric_literal);
                     }
 
                     token = new NumberToken() { IdxS = idxS, IdxE = idxE, Number = num, };

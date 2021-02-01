@@ -1,8 +1,8 @@
-﻿using System;
-using Xtel.PromoFormula.Expressions;
-using Xtel.PromoFormula.Interfaces;
+﻿using CalculationService.Expressions;
+using CalculationService.Interfaces;
+using System;
 
-namespace Xtel.PromoFormula.ExpressionBuilders
+namespace CalculationService.ExpressionBuilders
 {
     public class ConstantExprBuilder : ExprBuilder
     {

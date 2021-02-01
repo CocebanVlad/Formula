@@ -1,6 +1,6 @@
-﻿using Xtel.PromoFormula.Interfaces;
+﻿using CalculationService.Interfaces;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     public abstract class Expr : IExpr
     {

@@ -129,6 +129,9 @@
   <data name="cant_compare_objects_of__0__type" xml:space="preserve">
     <value>Can't compare objects of '{0}' type</value>
   </data>
+  <data name="invalid_formula" xml:space="preserve">
+    <value>Invalid formula</value>
+  </data>
   <data name="invalid_numeric_literal" xml:space="preserve">
     <value>Invalid numeric literal</value>
   </data>

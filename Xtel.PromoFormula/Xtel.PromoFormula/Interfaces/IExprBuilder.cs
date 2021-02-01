@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xtel.PromoFormula.Interfaces
+namespace CalculationService.Interfaces
 {
     public interface IExprBuilder
     {

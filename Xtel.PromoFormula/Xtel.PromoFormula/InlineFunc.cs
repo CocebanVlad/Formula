@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CalculationService.Interfaces;
+using System;
 using System.Collections.Generic;
-using Xtel.PromoFormula.Interfaces;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     public class InlineFunc : Func
     {

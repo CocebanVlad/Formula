@@ -1,6 +1,6 @@
-﻿using Xtel.PromoFormula.Interfaces;
+﻿using CalculationService.Interfaces;
 
-namespace Xtel.PromoFormula.Tokens
+namespace CalculationService.Tokens
 {
     public class NumberToken : Token, IConstantToken
     {

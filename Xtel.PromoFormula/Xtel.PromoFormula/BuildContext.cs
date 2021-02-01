@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using CalculationService.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
-using Xtel.PromoFormula.Interfaces;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     public class BuildContext : IRestorable<BuildContext>
     {

@@ -1,8 +1,8 @@
-﻿using System;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
+﻿using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using System;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     public abstract class ExprBuilder : IExprBuilder
     {
@@ -19,7 +19,7 @@ namespace Xtel.PromoFormula
         {
             if (expr == null)
             {
-                throw new BuildEx(token.IdxS, token.IdxE,
+                throw new CodeBuildEx(token.IdxS, token.IdxE,
                     string.Format(
                         tr.unexpected_token__0, token
                         ));
@@ -30,7 +30,7 @@ namespace Xtel.PromoFormula
         {
             if (predicate(token))
             {
-                throw new BuildEx(token.IdxS, token.IdxE,
+                throw new CodeBuildEx(token.IdxS, token.IdxE,
                     string.Format(
                         tr.unexpected_token__0, token
                         ));

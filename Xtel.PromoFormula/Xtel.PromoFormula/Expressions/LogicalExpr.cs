@@ -1,9 +1,9 @@
-﻿using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Enums;
+using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
 
-namespace Xtel.PromoFormula.Expressions
+namespace CalculationService.Expressions
 {
     public class LogicalExpr : Expr, IHasAAndB, ICanBeUsedAsBool, ICanBeNegated, IMathExprSuperior
     {
@@ -27,6 +27,13 @@ namespace Xtel.PromoFormula.Expressions
                 throw new RuntimeEx(A.IdxS, A.IdxE,
                     string.Format(tr._0__is_not__1__type, "A", Enums.Type.Bool));
             }
+
+            #region Try reduce logic
+            if ((Token.Operator == LogicalOperator.Or && a) || (Token.Operator == LogicalOperator.And && !a))
+            {
+                return a;
+            }
+            #endregion
 
             if (!(B.Eval() is bool b))
             {

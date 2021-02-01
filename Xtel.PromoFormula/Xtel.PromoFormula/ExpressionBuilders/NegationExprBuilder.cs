@@ -1,10 +1,10 @@
-﻿using System;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Expressions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Exceptions;
+using CalculationService.Expressions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
+using System;
 
-namespace Xtel.PromoFormula.ExpressionBuilders
+namespace CalculationService.ExpressionBuilders
 {
     public class NegationExprBuilder : ExprBuilder
     {
@@ -26,7 +26,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                 {
                     if (!Helpers.TypesMatch(expr.ReturnType, Enums.Type.Bool))
                     {
-                        throw new BuildEx(t.IdxS, expr.IdxE,
+                        throw new CodeBuildEx(t.IdxS, expr.IdxE,
                             string.Format(tr.operator__0__cannot_be_applied_to_operands_of_type__1,
                                 t,
                                 expr.ReturnType

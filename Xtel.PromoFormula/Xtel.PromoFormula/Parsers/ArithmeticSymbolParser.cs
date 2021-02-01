@@ -1,7 +1,7 @@
-﻿using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Interfaces;
+using CalculationService.Tokens;
 
-namespace Xtel.PromoFormula.Parsers
+namespace CalculationService.Parsers
 {
     public class ArithmeticSymbolParser : Parser
     {

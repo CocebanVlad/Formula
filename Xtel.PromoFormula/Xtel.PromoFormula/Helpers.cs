@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CalculationService.Enums;
+using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
 
-namespace Xtel.PromoFormula
+namespace CalculationService
 {
     public static class Helpers
     {
@@ -132,7 +132,7 @@ namespace Xtel.PromoFormula
                 case '0': return 0;
             }
 
-            throw new Exception(
+            throw new Ex(
                 string.Format(tr._0__not_a_digit, c));
         }
 
@@ -147,7 +147,7 @@ namespace Xtel.PromoFormula
                 case '%': return ArithmeticOperation.Mod;
             }
 
-            throw new Exception(
+            throw new Ex(
                 string.Format(tr._0__not_an_arithmetic_symbol, c));
         }
 
@@ -197,7 +197,7 @@ namespace Xtel.PromoFormula
                 return string.Join(",", arr);
             }
 
-            throw new Exception(
+            throw new Ex(
                 string.Format(
                     tr.cannot_transform__0__into_a_string,
                     obj.GetType().FullName

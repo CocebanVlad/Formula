@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CalculationService.Interfaces;
+using System;
 using System.Linq;
-using Xtel.PromoFormula.Interfaces;
 
-namespace Xtel.PromoFormula.Functions
+namespace CalculationService.Functions
 {
     [FuncRepository]
     public static class Sys

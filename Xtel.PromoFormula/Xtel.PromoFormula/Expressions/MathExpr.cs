@@ -1,9 +1,9 @@
-﻿using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Enums;
+using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
 
-namespace Xtel.PromoFormula.Expressions
+namespace CalculationService.Expressions
 {
     public class MathExpr : Expr, IHasAAndB, ICanBeUsedAsNumber, ICanBePrefixedWithPlusOrMinus
     {

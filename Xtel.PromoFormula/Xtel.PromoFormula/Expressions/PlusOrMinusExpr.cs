@@ -1,8 +1,8 @@
-﻿using Xtel.PromoFormula.Enums;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Enums;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
 
-namespace Xtel.PromoFormula.Expressions
+namespace CalculationService.Expressions
 {
     public class PlusOrMinusExpr : Expr, ICanBePrefixedWithPlusOrMinus
     {
@@ -20,7 +20,7 @@ namespace Xtel.PromoFormula.Expressions
         {
         }
 
-        public object ApplyPlus() => Expr.ApplyPlus();
+        public object ApplyPlus() => IsPlus ? Expr.Eval() : Expr.ApplyPlus();
 
         public object ApplyMinus() => Expr.ApplyMinus();
 

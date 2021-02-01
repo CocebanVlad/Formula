@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CalculationService.Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Xtel.PromoFormula.Interfaces;
 
-namespace Xtel.PromoFormula.Tests.Utils
+namespace CalculationService.Tests.Utils
 {
     public static class TokenizerAssert
     {

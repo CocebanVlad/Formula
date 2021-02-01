@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Xtel.PromoFormula\Xtel.PromoFormula.csproj" />
+    <ProjectReference Include="..\Xtel.PromoFormula\CalculationService.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Xtel.PromoFormula.Functions
+﻿namespace CalculationService.Functions
 {
     [FuncRepository]
     public static class Promo

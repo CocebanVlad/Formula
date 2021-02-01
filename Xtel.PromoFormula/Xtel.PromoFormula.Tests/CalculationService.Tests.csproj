@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <RootNamespace>CalculationService.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Xtel.PromoFormula.Functions\Xtel.PromoFormula.Functions.csproj" />
-    <ProjectReference Include="..\Xtel.PromoFormula\Xtel.PromoFormula.csproj" />
+    <ProjectReference Include="..\Xtel.PromoFormula.Functions\CalculationService.Functions.csproj" />
+    <ProjectReference Include="..\Xtel.PromoFormula\CalculationService.csproj" />
   </ItemGroup>
 
 </Project>

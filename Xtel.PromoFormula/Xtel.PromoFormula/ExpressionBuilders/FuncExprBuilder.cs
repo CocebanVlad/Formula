@@ -1,10 +1,10 @@
-﻿using System;
-using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Expressions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Exceptions;
+using CalculationService.Expressions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
+using System;
 
-namespace Xtel.PromoFormula.ExpressionBuilders
+namespace CalculationService.ExpressionBuilders
 {
     public class FuncExprBuilder : ExprBuilder
     {
@@ -20,7 +20,7 @@ namespace Xtel.PromoFormula.ExpressionBuilders
                 var func = Env.GetFunc(t.String);
                 if (func == null)
                 {
-                    throw new BuildEx(t.IdxS, t.IdxE,
+                    throw new CodeBuildEx(t.IdxS, t.IdxE,
                         string.Format(
                             tr.the_name__0__does_not_exist_in_the_current_environment,
                             t.String

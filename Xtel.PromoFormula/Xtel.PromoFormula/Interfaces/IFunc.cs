@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Xtel.PromoFormula.Interfaces
+namespace CalculationService.Interfaces
 {
     public interface IFunc
     {

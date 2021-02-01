@@ -1,7 +1,7 @@
-﻿using System;
-using Xtel.PromoFormula.Enums;
+﻿using CalculationService.Enums;
+using CalculationService.Exceptions;
 
-namespace Xtel.PromoFormula.Tokens
+namespace CalculationService.Tokens
 {
     public class ComparisonToken : Token
     {
@@ -25,7 +25,7 @@ namespace Xtel.PromoFormula.Tokens
                     return "<";
             }
 
-            throw new Exception(string.Format(
+            throw new Ex(string.Format(
                 tr.unknown_operator__0,
                 Operator
                 ));

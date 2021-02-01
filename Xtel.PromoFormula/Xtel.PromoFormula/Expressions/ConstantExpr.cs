@@ -1,8 +1,8 @@
-﻿using Xtel.PromoFormula.Exceptions;
-using Xtel.PromoFormula.Interfaces;
-using Xtel.PromoFormula.Tokens;
+﻿using CalculationService.Exceptions;
+using CalculationService.Interfaces;
+using CalculationService.Tokens;
 
-namespace Xtel.PromoFormula.Expressions
+namespace CalculationService.Expressions
 {
     public abstract class ConstantExpr : Expr
     {
@@ -43,7 +43,7 @@ namespace Xtel.PromoFormula.Expressions
                 return new StringExpr(str, env);
             }
 
-            throw new BuildEx(token.IdxS, token.IdxE,
+            throw new CodeBuildEx(token.IdxS, token.IdxE,
                 string.Format(tr.unknown_constant_token__0, token.GetType().FullName));
         }
     }

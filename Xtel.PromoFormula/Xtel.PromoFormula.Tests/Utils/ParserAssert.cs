@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xtel.PromoFormula.Interfaces;
+﻿using CalculationService.Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Xtel.PromoFormula.Tests.Utils
+namespace CalculationService.Tests.Utils
 {
     public static class ParserAssert
     {
